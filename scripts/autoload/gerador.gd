@@ -3,6 +3,7 @@ extends Node
 signal menu_alterado(novo: MenuResource)
 signal parametro_alterado(parametro: String, novo, antigo)
 signal cursor_movido()
+signal parametro_ativo_alterado(novo: Parametros, antigo: Parametros)
 
 enum Parametros {
 	NENHUM = 0,
@@ -10,6 +11,7 @@ enum Parametros {
 	FREQUENCIA = 1,
 	FASE = 2,
 	AMPLITUDE = 3,
+	PERIODO = 4,
 }
 
 var frequencia = 0:
@@ -26,6 +28,11 @@ var amplitude = 0:
 	set(value):
 		amplitude = value
 		parametro_alterado.emit("amplitude", value, amplitude)
+		
+var periodo = 0:
+	set(value):
+		periodo = value
+		parametro_alterado.emit("periodo", value, amplitude)
 	
 var parametro_posicao_cursor = 0
 
@@ -54,7 +61,12 @@ func botao_pressionado(indice: int) -> void:
 	menu_atual.botoes[indice].acao.call()
 	
 func set_parametro_ativo(parametro: Parametros):
+	var antigo = parametro_ativo
+	
+	parametro_posicao_cursor = 0
 	parametro_ativo = parametro
+	cursor_movido.emit()
+	parametro_ativo_alterado.emit(parametro_ativo, antigo)
 	
 func set_posicao_cursor(pos):
 	var valor = get_valor_parametro_ativo()
@@ -89,18 +101,22 @@ func set_posicao_cursor(pos):
 		cursor_movido.emit()
 	
 # getters
-func get_chave_parametro_ativo() -> String:
-	var param = parametro_ativo
+func get_chave_parametro(parametro: Parametros) -> String:
+	var param = parametro
 	var mapa = {
 		Parametros.FREQUENCIA: "frequencia",
 		Parametros.FASE: "fase",
 		Parametros.AMPLITUDE: "amplitude",
+		Parametros.PERIODO: "periodo",
 	}
 	
 	if not (param in mapa):
 		return ""
 	
 	return mapa[param]
+
+func get_chave_parametro_ativo() -> String:
+	return get_chave_parametro(parametro_ativo)
 
 func get_valor_parametro_ativo():
 	var chave = get_chave_parametro_ativo()

@@ -12,7 +12,7 @@ func _init() -> void:
 	
 	var botao_periodo = BotaoResource.new()
 	botao_periodo.label = "Period"
-	botao_periodo.acao = func(): print("TODO: selecionar periodo")
+	botao_periodo.acao = func(): Gerador.set_parametro_ativo(Gerador.Parametros.PERIODO)
 	
 	var botao_fase = BotaoResource.new()
 	botao_fase.label = "Phase"

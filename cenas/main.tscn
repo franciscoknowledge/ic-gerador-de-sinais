@@ -29,10 +29,10 @@ Amp:"
 script = ExtResource("3_5wwvk")
 
 [node name="label_nomes_botoes" type="Label" parent="."]
-offset_left = 475.0
-offset_top = 131.0
-offset_right = 698.0
-offset_bottom = 500.0
+offset_left = 555.0
+offset_top = 134.0
+offset_right = 778.0
+offset_bottom = 503.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
 text = "botoes"
