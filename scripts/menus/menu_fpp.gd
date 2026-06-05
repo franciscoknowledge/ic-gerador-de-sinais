@@ -8,7 +8,7 @@ func _init() -> void:
 	
 	var botao_frequencia = BotaoResource.new()
 	botao_frequencia.label = "Frequency"
-	botao_frequencia.acao = func(): Gerador.parametro_selecionado = Gerador.Parametros.FREQUENCIA
+	botao_frequencia.acao = func(): Gerador.set_parametro_ativo(Gerador.Parametros.FREQUENCIA)
 	
 	var botao_periodo = BotaoResource.new()
 	botao_periodo.label = "Period"
@@ -16,7 +16,7 @@ func _init() -> void:
 	
 	var botao_fase = BotaoResource.new()
 	botao_fase.label = "Phase"
-	botao_fase.acao = func(): Gerador.parametro_selecionado = Gerador.Parametros.FASE
+	botao_fase.acao = func(): Gerador.set_parametro_ativo(Gerador.Parametros.FASE)
 	
 	var botao_retornar = BotaoResource.new()
 	botao_retornar.label = "Retornar"

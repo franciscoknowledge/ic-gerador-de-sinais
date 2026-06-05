@@ -25,72 +25,21 @@ func _ready() -> void:
 #func _process(_delta: float) -> void:
 #	print(get_valor_parametro())
 
-func get_chave_parametro() -> String:
-	var param = Gerador.parametro_selecionado
-	var mapa = {
-		Gerador.Parametros.FREQUENCIA: "frequencia",
-		Gerador.Parametros.FASE: "fase",
-		Gerador.Parametros.AMPLITUDE: "amplitude",
-	}
-	
-	if not param in mapa:
-		return ""
-		
-	return mapa[param]
-
-func get_valor_parametro():
-	var chave = get_chave_parametro()
-	if chave == "": return
-	
-	return Gerador.get(chave)
-	
-func get_posicao_virgula(string: String) -> int:
-	for i in string.length():
-		if string[i] == ".":
-			return i
-			
-	return -1
-
 func digito_pressionado(digito: int) -> void:
-	var valor = get_valor_parametro()
-	var chave = get_chave_parametro()
+	var valor = Gerador.get_valor_parametro_ativo()
+	var chave = Gerador.get_chave_parametro_ativo()
 	if valor == null: return
 	
 	var valor_str = str(valor)
 	
-	set_cursor(Gerador.cursor_parametro)
+	# um jeito meio estupido de fazer um clamp, mas funciona!
+	Gerador.set_posicao_cursor(Gerador.parametro_posicao_cursor)
 	
-	if Gerador.cursor_parametro < valor_str.length():
-		valor_str[Gerador.cursor_parametro] = str(digito)
+	if Gerador.parametro_posicao_cursor < valor_str.length():
+		valor_str[Gerador.parametro_posicao_cursor] = str(digito)
 	else:
 		valor_str += str(digito)
 	Gerador.set(chave, float(valor_str))
 
-func set_cursor(para: int) -> void:
-	var valor = get_valor_parametro()
-	if valor == null:
-		Gerador.cursor_parametro = 0
-		return
-	
-	var valor_str = str(valor)
-	
-	var cursor_anterior = Gerador.cursor_parametro
-	
-	var valor_min = 0
-	var valor_max = valor_str.length() + 1
-	
-	Gerador.cursor_parametro = clamp(para, valor_min, valor_max)
-	
-	var direcao = para - cursor_anterior
-	var pos_virgula = get_posicao_virgula(valor_str)
-	
-	if pos_virgula < 0: return
-	
-	if Gerador.cursor_parametro == pos_virgula:
-		if direcao < 0:
-			Gerador.cursor_parametro -= 1
-		elif direcao > 0:
-			Gerador.cursor_parametro += 1
-			
 func andar_cursor(dir: int) -> void:
-	set_cursor(Gerador.cursor_parametro + dir)
+	Gerador.set_posicao_cursor(Gerador.parametro_posicao_cursor + dir)
