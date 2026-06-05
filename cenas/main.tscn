@@ -1,0 +1,247 @@
+[gd_scene load_steps=8 format=3 uid="uid://yy1nia7yryjw"]
+
+[ext_resource type="Script" uid="uid://q8q7e56uv1e2" path="res://scripts/main.gd" id="1_4fhxt"]
+[ext_resource type="Texture2D" uid="uid://crlhcm0sq1h7h" path="res://imagens/gerador2..png" id="2_b30p5"]
+[ext_resource type="Script" uid="uid://dtq40m8mss2g1" path="res://cenas/label_parametros.gd" id="3_5wwvk"]
+[ext_resource type="Script" uid="uid://bdgbqvuim03kh" path="res://cenas/botoes_manager.gd" id="3_b30p5"]
+[ext_resource type="Script" uid="uid://ih71lglyfr0k" path="res://cenas/label_nomes_botoes.gd" id="4_bhvw8"]
+[ext_resource type="Texture2D" uid="uid://br8qyckxp4std" path="res://imagens/teclado_temp.png" id="5_l8342"]
+[ext_resource type="Script" uid="uid://bir6b7hyptlpy" path="res://cenas/teclado.gd" id="5_v1d1r"]
+
+[node name="main" type="Node"]
+script = ExtResource("1_4fhxt")
+
+[node name="background" type="Sprite2D" parent="."]
+position = Vector2(820, 360)
+scale = Vector2(1.188, 1.188)
+texture = ExtResource("2_b30p5")
+
+[node name="label_parametros" type="Label" parent="."]
+offset_left = 284.0
+offset_top = 133.0
+offset_right = 507.0
+offset_bottom = 502.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Freq:
+Fase:
+Amp:"
+script = ExtResource("3_5wwvk")
+
+[node name="label_nomes_botoes" type="Label" parent="."]
+offset_left = 475.0
+offset_top = 131.0
+offset_right = 698.0
+offset_bottom = 500.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "botoes"
+script = ExtResource("4_bhvw8")
+
+[node name="teclado" type="Node" parent="."]
+script = ExtResource("5_v1d1r")
+
+[node name="numeros" type="Node" parent="teclado"]
+
+[node name="num_1" type="TextureButton" parent="teclado/numeros"]
+offset_left = 1018.0
+offset_top = 447.0
+offset_right = 1091.0
+offset_bottom = 494.0
+texture_normal = ExtResource("5_l8342")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="num_2" type="TextureButton" parent="teclado/numeros"]
+offset_left = 1115.0
+offset_top = 449.0
+offset_right = 1188.0
+offset_bottom = 496.0
+texture_normal = ExtResource("5_l8342")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="num_3" type="TextureButton" parent="teclado/numeros"]
+offset_left = 1219.0
+offset_top = 447.0
+offset_right = 1292.0
+offset_bottom = 494.0
+texture_normal = ExtResource("5_l8342")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="num_4" type="TextureButton" parent="teclado/numeros"]
+offset_left = 1022.0
+offset_top = 382.0
+offset_right = 1095.0
+offset_bottom = 429.0
+texture_normal = ExtResource("5_l8342")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="num_5" type="TextureButton" parent="teclado/numeros"]
+offset_left = 1117.0
+offset_top = 380.0
+offset_right = 1190.0
+offset_bottom = 427.0
+texture_normal = ExtResource("5_l8342")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="num_6" type="TextureButton" parent="teclado/numeros"]
+offset_left = 1219.0
+offset_top = 382.0
+offset_right = 1292.0
+offset_bottom = 429.0
+texture_normal = ExtResource("5_l8342")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="num_7" type="TextureButton" parent="teclado/numeros"]
+offset_left = 1017.0
+offset_top = 321.0
+offset_right = 1090.0
+offset_bottom = 368.0
+texture_normal = ExtResource("5_l8342")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="num_8" type="TextureButton" parent="teclado/numeros"]
+offset_left = 1124.0
+offset_top = 315.0
+offset_right = 1197.0
+offset_bottom = 362.0
+texture_normal = ExtResource("5_l8342")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="num_9" type="TextureButton" parent="teclado/numeros"]
+offset_left = 1219.0
+offset_top = 317.0
+offset_right = 1292.0
+offset_bottom = 364.0
+texture_normal = ExtResource("5_l8342")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="num_0" type="TextureButton" parent="teclado/numeros"]
+offset_left = 1018.0
+offset_top = 508.0
+offset_right = 1091.0
+offset_bottom = 555.0
+texture_normal = ExtResource("5_l8342")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="virgula" type="TextureButton" parent="teclado"]
+offset_left = 1118.0
+offset_top = 512.0
+offset_right = 1191.0
+offset_bottom = 559.0
+texture_normal = ExtResource("5_l8342")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="sinal" type="TextureButton" parent="teclado"]
+offset_left = 1212.0
+offset_top = 512.0
+offset_right = 1285.0
+offset_bottom = 559.0
+texture_normal = ExtResource("5_l8342")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="enter" type="TextureButton" parent="teclado"]
+offset_left = 1314.0
+offset_top = 512.0
+offset_right = 1422.0
+offset_bottom = 559.0
+texture_normal = ExtResource("5_l8342")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="backspace" type="TextureButton" parent="teclado"]
+offset_left = 1314.0
+offset_top = 382.0
+offset_right = 1422.0
+offset_bottom = 429.0
+texture_normal = ExtResource("5_l8342")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="cancel" type="TextureButton" parent="teclado"]
+offset_left = 1316.0
+offset_top = 316.0
+offset_right = 1424.0
+offset_bottom = 363.0
+texture_normal = ExtResource("5_l8342")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="cursor_tras" type="TextureButton" parent="teclado"]
+offset_left = 1238.0
+offset_top = 242.0
+offset_right = 1320.0
+offset_bottom = 289.0
+texture_normal = ExtResource("5_l8342")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="cursor_frente" type="TextureButton" parent="teclado"]
+offset_left = 1346.0
+offset_top = 245.0
+offset_right = 1428.0
+offset_bottom = 292.0
+texture_normal = ExtResource("5_l8342")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="botoes" type="Node" parent="."]
+script = ExtResource("3_b30p5")
+
+[node name="bot_1" type="TextureButton" parent="botoes"]
+offset_left = 727.0
+offset_top = 96.0
+offset_right = 800.0
+offset_bottom = 143.0
+texture_normal = ExtResource("5_l8342")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="bot_2" type="TextureButton" parent="botoes"]
+offset_left = 733.0
+offset_top = 196.0
+offset_right = 806.0
+offset_bottom = 243.0
+texture_normal = ExtResource("5_l8342")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="bot_3" type="TextureButton" parent="botoes"]
+offset_left = 728.0
+offset_top = 300.0
+offset_right = 801.0
+offset_bottom = 347.0
+texture_normal = ExtResource("5_l8342")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="bot_4" type="TextureButton" parent="botoes"]
+offset_left = 736.0
+offset_top = 399.0
+offset_right = 809.0
+offset_bottom = 446.0
+texture_normal = ExtResource("5_l8342")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="bot_5" type="TextureButton" parent="botoes"]
+offset_left = 730.0
+offset_top = 499.0
+offset_right = 803.0
+offset_bottom = 546.0
+texture_normal = ExtResource("5_l8342")
+ignore_texture_size = true
+stretch_mode = 0
+
+[connection signal="botao_pressionado" from="botoes" to="." method="_on_botoes_botao_pressionado"]
