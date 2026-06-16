@@ -2,6 +2,8 @@ extends MenuResource
 class_name MenuFpp
 
 func _init() -> void:
+	reseta_parametro = true
+	
 	var botao_vazio = BotaoResource.new()
 	botao_vazio.label = ""
 	botao_vazio.acao = func(): pass

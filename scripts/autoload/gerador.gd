@@ -12,6 +12,7 @@ enum Parametros {
 	FASE = 2,
 	AMPLITUDE = 3,
 	PERIODO = 4,
+	OFFSET = 5,
 }
 
 var frequencia = 0:
@@ -33,6 +34,11 @@ var periodo = 0:
 	set(value):
 		periodo = value
 		parametro_alterado.emit("periodo", value, amplitude)
+		
+var offset = 0:
+	set(value):
+		offset = value
+		parametro_alterado.emit("offset", value, amplitude)
 	
 var parametro_posicao_cursor = 0
 
@@ -44,10 +50,18 @@ func _ready() -> void:
 
 # public
 func ir_para_menu(menu: MenuResource) -> void:
+	if (Gerador.menu_atual.get_script() == menu.get_script()):
+		return
+		
+	if (menu.reseta_parametro):
+		Gerador.set_parametro_ativo(Parametros.NENHUM)
+	
 	print("trocando menu")
 	
 	menu_atual = menu
 	menu_alterado.emit(menu)
+	
+	#set_parametro_ativo(Parametros.NENHUM)
 	
 func botao_pressionado(indice: int) -> void:
 	if (not menu_atual):
@@ -56,6 +70,10 @@ func botao_pressionado(indice: int) -> void:
 		
 	if (indice > menu_atual.botoes.size() - 1): 
 		print_debug("o indice é maior do que a lista de botões")
+		return
+		
+	if (not menu_atual.botoes[indice].acao):
+		print_debug("esse botao não tem uma ação gng")
 		return
 	
 	menu_atual.botoes[indice].acao.call()
