@@ -13,6 +13,7 @@ extends Node
 	$numeros/num_9,
 ]
 
+# TODO: update dps
 var parametro_para_menu = {
 	Gerador.Parametros.FREQUENCIA: MenuUnidadesFreq.new()
 }

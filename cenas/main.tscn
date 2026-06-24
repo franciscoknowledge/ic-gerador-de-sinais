@@ -1,27 +1,35 @@
-[gd_scene load_steps=9 format=3 uid="uid://yy1nia7yryjw"]
+[gd_scene load_steps=11 format=3 uid="uid://yy1nia7yryjw"]
 
 [ext_resource type="Script" uid="uid://q8q7e56uv1e2" path="res://scripts/main.gd" id="1_4fhxt"]
 [ext_resource type="Texture2D" uid="uid://crlhcm0sq1h7h" path="res://imagens/gerador2..png" id="2_b30p5"]
-[ext_resource type="Script" uid="uid://dtq40m8mss2g1" path="res://cenas/label_parametros.gd" id="3_5wwvk"]
-[ext_resource type="Script" uid="uid://bdgbqvuim03kh" path="res://cenas/botoes_manager.gd" id="3_b30p5"]
-[ext_resource type="Script" uid="uid://ih71lglyfr0k" path="res://cenas/label_nomes_botoes.gd" id="4_bhvw8"]
+[ext_resource type="Script" uid="uid://dtq40m8mss2g1" path="res://scripts/label_parametros.gd" id="3_5wwvk"]
+[ext_resource type="Script" uid="uid://bdgbqvuim03kh" path="res://scripts/botoes_manager.gd" id="3_b30p5"]
+[ext_resource type="Texture2D" uid="uid://btm0khxsweo1" path="res://imagens/gerador4.png" id="3_jdavq"]
+[ext_resource type="Script" uid="uid://ih71lglyfr0k" path="res://scripts/label_nomes_botoes.gd" id="4_bhvw8"]
 [ext_resource type="Texture2D" uid="uid://br8qyckxp4std" path="res://imagens/teclado_temp.png" id="5_l8342"]
-[ext_resource type="Script" uid="uid://bir6b7hyptlpy" path="res://cenas/teclado.gd" id="5_v1d1r"]
-[ext_resource type="Script" uid="uid://bw4lcu1kb087a" path="res://cenas/botoes_atalho.gd" id="8_v1d1r"]
+[ext_resource type="Script" uid="uid://bir6b7hyptlpy" path="res://scripts/teclado.gd" id="5_v1d1r"]
+[ext_resource type="Script" uid="uid://bw4lcu1kb087a" path="res://scripts/botoes_atalho.gd" id="8_v1d1r"]
+[ext_resource type="Script" uid="uid://dueky2l70ypx" path="res://scripts/labels_botoes.gd" id="10_jdavq"]
 
 [node name="main" type="Node"]
 script = ExtResource("1_4fhxt")
 
 [node name="background" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(820, 360)
 scale = Vector2(1.188, 1.188)
 texture = ExtResource("2_b30p5")
 
+[node name="background2" type="Sprite2D" parent="."]
+position = Vector2(820, 367)
+scale = Vector2(0.26, 0.26)
+texture = ExtResource("3_jdavq")
+
 [node name="label_parametros" type="Label" parent="."]
-offset_left = 284.0
-offset_top = 133.0
-offset_right = 507.0
-offset_bottom = 502.0
+offset_left = 126.0
+offset_top = 92.0
+offset_right = 349.0
+offset_bottom = 461.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
 text = "Freq:
@@ -30,10 +38,10 @@ Amp:"
 script = ExtResource("3_5wwvk")
 
 [node name="label_nomes_botoes" type="Label" parent="."]
-offset_left = 280.0
-offset_top = 253.0
-offset_right = 503.0
-offset_bottom = 622.0
+offset_left = -370.0
+offset_top = 55.0
+offset_right = -147.0
+offset_bottom = 424.0
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
 text = "botoes"
@@ -45,154 +53,154 @@ script = ExtResource("5_v1d1r")
 [node name="numeros" type="Node" parent="teclado"]
 
 [node name="num_1" type="TextureButton" parent="teclado/numeros"]
-offset_left = 1018.0
-offset_top = 447.0
-offset_right = 1091.0
-offset_bottom = 494.0
+offset_left = 1117.0
+offset_top = 450.0
+offset_right = 1194.0
+offset_bottom = 506.0
 texture_normal = ExtResource("5_l8342")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="num_2" type="TextureButton" parent="teclado/numeros"]
-offset_left = 1115.0
-offset_top = 449.0
-offset_right = 1188.0
-offset_bottom = 496.0
+offset_left = 1218.0
+offset_top = 452.0
+offset_right = 1297.0
+offset_bottom = 508.0
 texture_normal = ExtResource("5_l8342")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="num_3" type="TextureButton" parent="teclado/numeros"]
-offset_left = 1219.0
-offset_top = 447.0
-offset_right = 1292.0
-offset_bottom = 494.0
+offset_left = 1322.0
+offset_top = 448.0
+offset_right = 1404.0
+offset_bottom = 506.0
 texture_normal = ExtResource("5_l8342")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="num_4" type="TextureButton" parent="teclado/numeros"]
-offset_left = 1022.0
-offset_top = 382.0
-offset_right = 1095.0
-offset_bottom = 429.0
+offset_left = 1121.0
+offset_top = 385.0
+offset_right = 1196.0
+offset_bottom = 436.0
 texture_normal = ExtResource("5_l8342")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="num_5" type="TextureButton" parent="teclado/numeros"]
-offset_left = 1117.0
-offset_top = 380.0
-offset_right = 1190.0
-offset_bottom = 427.0
+offset_left = 1220.0
+offset_top = 384.0
+offset_right = 1301.0
+offset_bottom = 439.0
 texture_normal = ExtResource("5_l8342")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="num_6" type="TextureButton" parent="teclado/numeros"]
-offset_left = 1219.0
+offset_left = 1322.0
 offset_top = 382.0
-offset_right = 1292.0
-offset_bottom = 429.0
+offset_right = 1407.0
+offset_bottom = 441.0
 texture_normal = ExtResource("5_l8342")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="num_7" type="TextureButton" parent="teclado/numeros"]
-offset_left = 1017.0
-offset_top = 321.0
-offset_right = 1090.0
+offset_left = 1122.0
+offset_top = 315.0
+offset_right = 1195.0
 offset_bottom = 368.0
 texture_normal = ExtResource("5_l8342")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="num_8" type="TextureButton" parent="teclado/numeros"]
-offset_left = 1124.0
+offset_left = 1227.0
 offset_top = 315.0
-offset_right = 1197.0
-offset_bottom = 362.0
+offset_right = 1300.0
+offset_bottom = 374.0
 texture_normal = ExtResource("5_l8342")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="num_9" type="TextureButton" parent="teclado/numeros"]
-offset_left = 1219.0
+offset_left = 1322.0
 offset_top = 317.0
-offset_right = 1292.0
-offset_bottom = 364.0
+offset_right = 1407.0
+offset_bottom = 376.0
 texture_normal = ExtResource("5_l8342")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="num_0" type="TextureButton" parent="teclado/numeros"]
-offset_left = 1018.0
-offset_top = 508.0
-offset_right = 1091.0
-offset_bottom = 555.0
+offset_left = 1119.0
+offset_top = 520.0
+offset_right = 1194.0
+offset_bottom = 575.0
 texture_normal = ExtResource("5_l8342")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="virgula" type="TextureButton" parent="teclado"]
-offset_left = 1118.0
-offset_top = 512.0
-offset_right = 1191.0
-offset_bottom = 559.0
+offset_left = 1225.0
+offset_top = 516.0
+offset_right = 1298.0
+offset_bottom = 572.0
 texture_normal = ExtResource("5_l8342")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="sinal" type="TextureButton" parent="teclado"]
-offset_left = 1212.0
-offset_top = 512.0
-offset_right = 1285.0
-offset_bottom = 559.0
+offset_left = 1327.0
+offset_top = 517.0
+offset_right = 1412.0
+offset_bottom = 572.0
 texture_normal = ExtResource("5_l8342")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="enter" type="TextureButton" parent="teclado"]
-offset_left = 1314.0
-offset_top = 512.0
-offset_right = 1422.0
-offset_bottom = 559.0
+offset_left = 1435.0
+offset_top = 525.0
+offset_right = 1543.0
+offset_bottom = 572.0
 texture_normal = ExtResource("5_l8342")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="backspace" type="TextureButton" parent="teclado"]
-offset_left = 1314.0
-offset_top = 382.0
-offset_right = 1422.0
-offset_bottom = 429.0
+offset_left = 1438.0
+offset_top = 388.0
+offset_right = 1546.0
+offset_bottom = 435.0
 texture_normal = ExtResource("5_l8342")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="cancel" type="TextureButton" parent="teclado"]
-offset_left = 1316.0
-offset_top = 316.0
-offset_right = 1424.0
-offset_bottom = 363.0
+offset_left = 1441.0
+offset_top = 319.0
+offset_right = 1549.0
+offset_bottom = 366.0
 texture_normal = ExtResource("5_l8342")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="cursor_tras" type="TextureButton" parent="teclado"]
-offset_left = 1238.0
-offset_top = 242.0
-offset_right = 1320.0
-offset_bottom = 289.0
+offset_left = 1359.0
+offset_top = 236.0
+offset_right = 1441.0
+offset_bottom = 297.0
 texture_normal = ExtResource("5_l8342")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="cursor_frente" type="TextureButton" parent="teclado"]
-offset_left = 1346.0
-offset_top = 245.0
-offset_right = 1428.0
-offset_bottom = 292.0
+offset_left = 1473.0
+offset_top = 233.0
+offset_right = 1555.0
+offset_bottom = 286.0
 texture_normal = ExtResource("5_l8342")
 ignore_texture_size = true
 stretch_mode = 0
@@ -201,46 +209,46 @@ stretch_mode = 0
 script = ExtResource("3_b30p5")
 
 [node name="bot_1" type="TextureButton" parent="botoes"]
-offset_left = 727.0
-offset_top = 96.0
-offset_right = 800.0
-offset_bottom = 143.0
+offset_left = 808.0
+offset_top = 100.0
+offset_right = 898.0
+offset_bottom = 168.0
 texture_normal = ExtResource("5_l8342")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="bot_2" type="TextureButton" parent="botoes"]
-offset_left = 733.0
-offset_top = 196.0
-offset_right = 806.0
-offset_bottom = 243.0
+offset_left = 814.0
+offset_top = 216.0
+offset_right = 892.0
+offset_bottom = 279.0
 texture_normal = ExtResource("5_l8342")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="bot_3" type="TextureButton" parent="botoes"]
-offset_left = 728.0
-offset_top = 300.0
-offset_right = 801.0
-offset_bottom = 347.0
+offset_left = 811.0
+offset_top = 334.0
+offset_right = 897.0
+offset_bottom = 394.0
 texture_normal = ExtResource("5_l8342")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="bot_4" type="TextureButton" parent="botoes"]
-offset_left = 736.0
-offset_top = 399.0
-offset_right = 809.0
-offset_bottom = 446.0
+offset_left = 819.0
+offset_top = 458.0
+offset_right = 899.0
+offset_bottom = 519.0
 texture_normal = ExtResource("5_l8342")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="bot_5" type="TextureButton" parent="botoes"]
-offset_left = 730.0
-offset_top = 499.0
-offset_right = 803.0
-offset_bottom = 546.0
+offset_left = 817.0
+offset_top = 571.0
+offset_right = 904.0
+offset_bottom = 634.0
 texture_normal = ExtResource("5_l8342")
 ignore_texture_size = true
 stretch_mode = 0
@@ -249,40 +257,103 @@ stretch_mode = 0
 script = ExtResource("8_v1d1r")
 
 [node name="freq_periodo" type="TextureButton" parent="botoes_atalho"]
-offset_left = 977.0
-offset_top = 94.0
-offset_right = 1096.0
-offset_bottom = 180.0
+offset_left = 1082.0
+offset_top = 81.0
+offset_right = 1201.0
+offset_bottom = 167.0
 texture_normal = ExtResource("5_l8342")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="amplitude_alta" type="TextureButton" parent="botoes_atalho"]
-offset_left = 1108.0
-offset_top = 94.0
-offset_right = 1227.0
-offset_bottom = 180.0
+offset_left = 1216.0
+offset_top = 85.0
+offset_right = 1335.0
+offset_bottom = 171.0
 texture_normal = ExtResource("5_l8342")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="fase_atraso" type="TextureButton" parent="botoes_atalho"]
-offset_left = 980.0
-offset_top = 210.0
-offset_right = 1099.0
-offset_bottom = 296.0
+offset_left = 1078.0
+offset_top = 201.0
+offset_right = 1197.0
+offset_bottom = 287.0
 texture_normal = ExtResource("5_l8342")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="descolamento_baixo" type="TextureButton" parent="botoes_atalho"]
-offset_left = 1107.0
-offset_top = 206.0
-offset_right = 1226.0
-offset_bottom = 292.0
+offset_left = 1222.0
+offset_top = 209.0
+offset_right = 1341.0
+offset_bottom = 295.0
 texture_normal = ExtResource("5_l8342")
 ignore_texture_size = true
 stretch_mode = 0
+
+[node name="labels_botoes" type="Node" parent="."]
+script = ExtResource("10_jdavq")
+
+[node name="botao_1" type="Label" parent="labels_botoes"]
+offset_left = 590.0
+offset_top = 70.0
+offset_right = 762.0
+offset_bottom = 187.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "botao 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="botao_2" type="Label" parent="labels_botoes"]
+offset_left = 590.0
+offset_top = 190.0
+offset_right = 762.0
+offset_bottom = 307.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "botao 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="botao_3" type="Label" parent="labels_botoes"]
+offset_left = 590.0
+offset_top = 310.0
+offset_right = 762.0
+offset_bottom = 427.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "botao 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="botao_4" type="Label" parent="labels_botoes"]
+offset_left = 590.0
+offset_top = 430.0
+offset_right = 762.0
+offset_bottom = 547.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "botao 4"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="botao_5" type="Label" parent="labels_botoes"]
+offset_left = 590.0
+offset_top = 550.0
+offset_right = 762.0
+offset_bottom = 667.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "botao 5"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
 [connection signal="botao_pressionado" from="botoes" to="." method="_on_botoes_botao_pressionado"]
 [connection signal="pressed" from="botoes_atalho/freq_periodo" to="botoes_atalho" method="_on_freq_periodo_pressed"]
