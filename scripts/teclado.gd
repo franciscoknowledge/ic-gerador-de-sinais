@@ -1,3 +1,6 @@
+# TODO: salvar os valores ao apertar uma das grandezas
+# TODO: se apertar cancel deve descartar o input no menu das grandezas
+
 extends Node
 
 @onready var botoes_numeros = [
@@ -13,104 +16,97 @@ extends Node
 	$numeros/num_9,
 ]
 
-# TODO: update dps
 var parametro_para_menu = {
-	Gerador.Parametros.FREQUENCIA: MenuUnidadesFreq.new()
+	Gerador.Parametros.FREQUENCIA: MenuUnidadesFreq.new(),
 }
 
-var valor_anterior
-var parametro_anterior
-var modo_digitacao = false
+var is_modo_digitacao_ativo: bool = false
+var parametro_atual: Gerador.Parametros = Gerador.Parametros.NENHUM
+var chave_parametro_atual: String = "" # checar com .is_empty
 
+var valor_antes_de_editar: float # checar com null
+
+# godot
 func _ready() -> void:
 	for i in botoes_numeros.size():
 		var botao: TextureButton = botoes_numeros[i]
-		botao.pressed.connect(digito_pressionado.bind(i))
+		botao.pressed.connect(_bot_digito.bind(i))
 		
-	$cursor_frente.pressed.connect(andar_cursor.bind(1))
-	$cursor_tras.pressed.connect(andar_cursor.bind(-1))
+	$cursor_frente.pressed.connect(_bot_mover_cursor.bind(1))
+	$cursor_tras.pressed.connect(_bot_mover_cursor.bind(-1))
 	$virgula.pressed.connect(inserir_virgula)
-	$backspace.pressed.connect(backspace)
-	$cancel.pressed.connect(cancel)
-	$enter.pressed.connect(enter)
+	$backspace.pressed.connect(_bot_backspace)
+	$cancel.pressed.connect(_bot_cancel)
+	$enter.pressed.connect(_bot_enter)
 	
-	Gerador.menu_alterado.connect(on_menu_alterado)
-	Gerador.parametro_ativo_alterado.connect(salvar_valor)
+	Gerador.menu_alterado.connect(_on_menu_alterado)
+	#Gerador.parametro_ativo_alterado.connect(salvar_valor)
 
-# debug!	
-#func _process(_delta: float) -> void:
-#	print(get_valor_parametro())
+#func _process(d) -> void:
+#	print(is_modo_digitacao_ativo)
 
-func on_menu_alterado(novo: MenuResource) -> void:
-	if not novo.reseta_parametro: return
-	modo_digitacao = false
+# helpers
+func get_valor_atual() -> float:
+	return Gerador.get_valor_parametro_ativo()
+	
+func get_valor_atual_string() -> String:
+	return str(get_valor_atual())
 
-func recuperar_valor() -> void:
-	if valor_anterior == null: return
-	if parametro_anterior == null: return
+func habilitar_digitacao() -> void:
+	valor_antes_de_editar = Gerador.get(Gerador.get_chave_parametro_ativo())
 	
-	var chave = Gerador.get_chave_parametro(parametro_anterior)
-	if not chave: return
+	is_modo_digitacao_ativo = true
+	parametro_atual = Gerador.parametro_ativo
+	chave_parametro_atual = Gerador.get_chave_parametro_ativo()
 	
-	Gerador.set(chave, valor_anterior)
+	Gerador.set(chave_parametro_atual, 0)
+	
+	var menu = parametro_para_menu[Gerador.parametro_ativo]
+	Gerador.ir_para_menu(menu)
+	
+func desabilitar_digitacao(salvar_mudancas: bool) -> void:
+	if not salvar_mudancas and valor_antes_de_editar != null:
+		Gerador.set(chave_parametro_atual, valor_antes_de_editar)
+	
+	if Gerador.parametro_ativo != Gerador.Parametros.NENHUM:
+		# arredondar para 2 casas decimais antes de salvar
+		var fator = pow(10, 2)
+		var arrendondado = round(Gerador.get_valor_parametro_ativo() * fator) / fator
+		
+		Gerador.set(chave_parametro_atual, arrendondado)
+	
+	is_modo_digitacao_ativo = false
+	parametro_atual = Gerador.Parametros.NENHUM
+	chave_parametro_atual = ""
 
-func salvar_valor(novo: Gerador.Parametros, _antigo: Gerador.Parametros) -> void:
-	var chave = Gerador.get_chave_parametro_ativo()
-	if not chave: return
+func salvar_valor() -> void:
+	if not is_modo_digitacao_ativo: return
 	
-	valor_anterior = Gerador.get(chave)
-	parametro_anterior = novo
+	valor_antes_de_editar = Gerador.get(chave_parametro_atual)
 	
-func cancel() -> void:
-	recuperar_valor()
-	parametro_anterior = null
-	Gerador.set_parametro_ativo(Gerador.Parametros.NENHUM)
+func inserir_digito(digito: int) -> void:
+	if not is_modo_digitacao_ativo: return
 	
-	modo_digitacao = false
+	#var valor = get_valor_atual()
+	var valor_str = get_valor_atual_string()
 	
-func enter() -> void:
-	parametro_anterior = null
-	valor_anterior = null
-	Gerador.set_parametro_ativo(Gerador.Parametros.NENHUM)
-	
-	modo_digitacao = false
-
-func digito_pressionado(digito: int) -> void:
-	var valor = Gerador.get_valor_parametro_ativo()
-	var chave = Gerador.get_chave_parametro_ativo()
-	if valor == null: return
-	
-	var valor_str = str(valor)
 	var pos_virgula = valor_str.find(".")
 	var cursor = Gerador.parametro_posicao_cursor
 	
 	var tamanho_antigo = valor_str.length()
 	
+	# isso deve ser parte de outra função
 	# TODO: reduzir nesting, temp!
-	if not modo_digitacao:
-		valor_str = ""
-		cursor = 0
-		modo_digitacao = true
-		
-		var menu = parametro_para_menu[Gerador.parametro_ativo]
-		if menu:
-			Gerador.ir_para_menu(menu)
+	#if not modo_digitacao:
+	#	valor_str = ""
+	#	cursor = 0
+	#	modo_digitacao = true
+	#	
+	#	var menu = parametro_para_menu[Gerador.parametro_ativo]
+	#	if menu:
+	#		Gerador.ir_para_menu(menu)
 	
 	Gerador.set_posicao_cursor(cursor)
-	
-	# testando outros metodos de inserir os numeros
-	#if (pos_virgula < 0) or (cursor < pos_virgula):
-	#	valor_str = valor_str.insert(cursor, str(digito))
-	#else:
-	#	if cursor < valor_str.length():
-	#		valor_str[cursor] = str(digito)
-	#	else:
-	#		valor_str += str(digito)
-	
-	#if Gerador.parametro_posicao_cursor < valor_str.length():
-	#	valor_str[Gerador.parametro_posicao_cursor] = str(digito)
-	#else:
-	#	valor_str += str(digito)
 	
 	if pos_virgula < 0:
 		valor_str += str(digito)
@@ -121,20 +117,58 @@ func digito_pressionado(digito: int) -> void:
 			valor_str += str(digito)
 			
 	var tamanho_novo = valor_str.length()
-	Gerador.set(chave, float(valor_str))
+	Gerador.set(chave_parametro_atual, float(valor_str))
 	
 	if tamanho_antigo != tamanho_novo:
 		Gerador.set_posicao_cursor(cursor + 1)
 		
-func backspace() -> void:
-	# TEMP
-	if not modo_digitacao: return
+func inserir_virgula() -> void:
+	if not is_modo_digitacao_ativo: return
 	
-	var valor = Gerador.get_valor_parametro_ativo()
-	var chave = Gerador.get_chave_parametro_ativo()
-	if valor == null: return
+	var valor = get_valor_atual()
+	var valor_str = get_valor_atual_string()
 	
-	var valor_str = str(valor)
+	var pos_virgula_original = valor_str.find(".")
+	var pos_nova_virgula = Gerador.parametro_posicao_cursor
+	
+	if pos_virgula_original < 0:
+		pos_virgula_original = valor_str.length()
+		
+	if pos_nova_virgula > valor_str.length():
+		pos_nova_virgula = valor_str.length() - 1
+	
+	var mult = pos_nova_virgula - pos_virgula_original
+	var novo_valor = valor * pow(10, mult)
+	
+	Gerador.set(chave_parametro_atual, novo_valor)
+	
+func mover_cursor(direcao: int) -> void:
+	Gerador.set_posicao_cursor(Gerador.parametro_posicao_cursor + direcao)
+	
+# botoes / conexões dos sinais
+func _on_menu_alterado(novo: MenuResource):
+	if not novo.reseta_parametro: return
+	desabilitar_digitacao(false)
+
+func _bot_cancel() -> void:
+	desabilitar_digitacao(false)
+	
+func _bot_enter() -> void:
+	desabilitar_digitacao(true)
+	
+func _bot_mover_cursor(direcao: int) -> void:
+	if not is_modo_digitacao_ativo:
+		habilitar_digitacao()
+		return
+		
+	mover_cursor(direcao)
+	
+func _bot_backspace() -> void:
+	if not is_modo_digitacao_ativo:
+		habilitar_digitacao()
+		return
+	
+	var valor_str = get_valor_atual_string()
 	var onde = Gerador.parametro_posicao_cursor - 1
 	
 	if onde < 0: onde = 0
@@ -147,30 +181,14 @@ func backspace() -> void:
 	if valor_str.is_empty():	
 		valor_str = "0.0"
 		
-	Gerador.set(chave, float(valor_str))
+	Gerador.set(chave_parametro_atual, float(valor_str))
 	Gerador.set_posicao_cursor(Gerador.parametro_posicao_cursor - 1)
 	
-func inserir_virgula() -> void:
-	var valor = Gerador.get_valor_parametro_ativo()
-	var chave = Gerador.get_chave_parametro_ativo()
-	if valor == null: return
+func _bot_digito(digito: int) -> void:
+	if Gerador.parametro_ativo == Gerador.Parametros.NENHUM: return
 	
-	var valor_str = str(valor)
-	
-	var pos_virgula_original = valor_str.find(".")
-	var pos_nova_virgula = Gerador.parametro_posicao_cursor
-	
-	if pos_virgula_original < 0:
-		pos_virgula_original = valor_str.length()
+	if not is_modo_digitacao_ativo:
+		habilitar_digitacao()
+		return
 		
-	if pos_nova_virgula > valor_str.length():
-		print("hm")
-		pos_nova_virgula = valor_str.length() - 1
-	
-	var mult = pos_nova_virgula - pos_virgula_original
-	var novo_valor = valor * pow(10, mult)
-	
-	Gerador.set(chave, novo_valor)
-
-func andar_cursor(dir: int) -> void:
-	Gerador.set_posicao_cursor(Gerador.parametro_posicao_cursor + dir)
+	inserir_digito(digito)
