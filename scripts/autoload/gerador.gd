@@ -3,6 +3,7 @@ extends Node
 signal grandeza_alterada(grandeza: Grandeza)
 signal menu_alterado(novo: MenuResource)
 signal id_grandeza_sendo_editada_alterada()
+signal tipo_de_onda_alterada()
 signal digitacao_confirmada(mult: int)
 
 enum ID_GRANDEZAS {
@@ -16,10 +17,22 @@ enum ID_GRANDEZAS {
 	SIMETRIA = 6,
 }
 
+enum ID_TIPO_ONDA {
+	SIN = 1,
+	QUAD = 2,
+	TRIG = 3,
+}
+
+# a frequencia é a unica que muda seus limites, então achei melhor
+# colocar as constantes apenas pra ela
+const MAX_FREQ_SIN_QUAD = 25e6
+const MAX_FREQ_TRIG = 500e3
+const MIN_FREQ = 1e-6
+
 var menu_atual: MenuResource = MenuPrincipal.new()
 var menu_anterior: MenuResource
 
-var frequencia := Grandeza.new(0, 1e-6, 25e6, 17, "hz")
+var frequencia := Grandeza.new(0, MIN_FREQ, MAX_FREQ_SIN_QUAD, 17, "hz")
 var periodo := Grandeza.new(0, 40e-9, 1e6, 15, "s")
 var fase := Grandeza.new(0, -360, 360, 9, "°")
 var amplitude := Grandeza.new(10, 10e-3, 10, 8, "Vpp")
@@ -33,7 +46,18 @@ var id_grandeza_sendo_editada: ID_GRANDEZAS = ID_GRANDEZAS.NENHUM:
 		
 		id_grandeza_sendo_editada = v
 		id_grandeza_sendo_editada_alterada.emit()
-
+		
+var tipo_de_onda: ID_TIPO_ONDA = ID_TIPO_ONDA.SIN:
+	set(v):
+		var antigo = tipo_de_onda
+		if antigo == v: return
+		
+		tipo_de_onda = v
+		tipo_de_onda_alterada.emit()
+		
+		var max_freq = MAX_FREQ_TRIG if tipo_de_onda == ID_TIPO_ONDA.TRIG else MAX_FREQ_SIN_QUAD
+		frequencia.set_limites(MIN_FREQ, max_freq)
+		
 func _ready() -> void:
 	print("gerador ready")
 	
@@ -76,6 +100,7 @@ func set_menu(menu: MenuResource) -> void:
 	menu_anterior = menu_atual
 	menu_atual = menu
 	
+	menu.ao_entrar()
 	menu_alterado.emit(menu_atual)
 	
 # outros

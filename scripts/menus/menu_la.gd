@@ -1,6 +1,13 @@
 extends MenuResource
 class_name MenuLa
 
+func ao_entrar() -> void:
+	match(Gerador.id_grandeza_sendo_editada):
+		Gerador.ID_GRANDEZAS.AMPLITUDE: return
+		Gerador.ID_GRANDEZAS.OFFSET: return
+		
+	Gerador.id_grandeza_sendo_editada = Gerador.ID_GRANDEZAS.AMPLITUDE
+
 func _init() -> void:
 	reseta_grandeza_editada = false
 	

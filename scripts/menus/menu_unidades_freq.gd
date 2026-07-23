@@ -14,7 +14,7 @@ func mult_freq(expoente: int):
 
 func _init() -> void:
 	reseta_grandeza_editada = false
-
+	
 	var botao_hz = BotaoResource.new()
 	botao_hz.label = "hz"
 	botao_hz.acao = mult_freq.bind(0)

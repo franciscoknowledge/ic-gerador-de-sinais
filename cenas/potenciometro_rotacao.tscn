@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bjuol1tmatima"]
+
+[ext_resource type="Script" uid="uid://bylfeomj14xnn" path="res://scripts/potenciometro_rotacao.gd" id="1_3xlki"]
+[ext_resource type="Texture2D" uid="uid://cy6svbebncix0" path="res://imagens/potenciometro.png" id="2_3xlki"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3xlki"]
+radius = 118.03813
+
+[node name="potenciometro_rotacao" type="Area2D"]
+script = ExtResource("1_3xlki")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_3xlki")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_3xlki")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

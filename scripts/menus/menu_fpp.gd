@@ -1,7 +1,14 @@
 extends MenuResource
 class_name MenuFpp
 
-# TODO: deve selecionar amplitude / periodo dependendo de qual foi selecionado anteriormente
+func ao_entrar() -> void:
+	match(Gerador.id_grandeza_sendo_editada):
+		Gerador.ID_GRANDEZAS.FREQUENCIA: return
+		Gerador.ID_GRANDEZAS.FASE: return
+		Gerador.ID_GRANDEZAS.PERIODO: return
+		
+	Gerador.id_grandeza_sendo_editada = Gerador.ID_GRANDEZAS.FREQUENCIA
+	
 func _init() -> void:
 	reseta_grandeza_editada = false
 	

@@ -1,4 +1,5 @@
 extends Node
+signal fez_update
 
 @onready var teclado = $"../teclado"
 
@@ -9,7 +10,7 @@ extends Node
 @onready var l_offset = $offset
 
 # TODO: talvez tds esses dicts são ruins. outra hora procurar uma alternativa
-@onready var label_para_grandeza: Dictionary[Label, Grandeza] = {
+@onready var label_para_grandeza: Dictionary[RichTextLabel, Grandeza] = {
 	l_frequencia : Gerador.frequencia,
 	l_periodo : Gerador.periodo,
 	l_fase : Gerador.fase,
@@ -17,7 +18,7 @@ extends Node
 	l_offset : Gerador.offset
 }
 
-@onready var label_para_texto: Dictionary[Label, String] = {
+@onready var label_para_texto: Dictionary[RichTextLabel, String] = {
 	l_frequencia : "Freq",
 	l_periodo : "Period",
 	l_fase : "Phase",
@@ -25,7 +26,7 @@ extends Node
 	l_offset : "Offset",
 }
 
-@onready var label_para_id: Dictionary[Label, Gerador.ID_GRANDEZAS] = {
+@onready var label_para_id: Dictionary[RichTextLabel, Gerador.ID_GRANDEZAS] = {
 	l_frequencia : Gerador.ID_GRANDEZAS.FREQUENCIA,
 	l_periodo : Gerador.ID_GRANDEZAS.PERIODO,
 	l_fase : Gerador.ID_GRANDEZAS.FASE,
@@ -46,10 +47,8 @@ var sufixos := {
 # TODO: adicionar um sinal para quando a posição do cursor muda
 func _ready() -> void:
 	update()
-	#Gerador.grandeza_alterada.connect(update)
-	
-func _process(_d) -> void:
-	update()
+	Gerador.grandeza_alterada.connect(_on_grandeza_alterada)
+	teclado.update.connect(update)
 
 func get_notacao(grandeza: Grandeza) -> Dictionary:
 	# tentando fazer de um jeito mais "estupido" pra nao ter erro com os floats
@@ -71,11 +70,16 @@ func get_notacao(grandeza: Grandeza) -> Dictionary:
 	# TODO: esse padding com os digitos nn faz o minimo sentido pra nenhum outro parametro
 	return {
 		base = "%.*f" % [grandeza.digitos - 4 - c.length(), v * s],
-		sufixo = sufixos[expoente]
+		sufixo = sufixos[expoente],
+		exp = expoente
 	}
 
 func inserir_cursor(string: String) -> String:
-	return string.insert(teclado.pos_cursor, "|")
+	return string.insert(teclado.pos_cursor, "│")
+	
+func get_base(grandeza: Grandeza) -> String:
+	var params = get_notacao(grandeza)
+	return params.base
 
 func update() -> void:
 	for label in label_para_grandeza:
@@ -91,16 +95,22 @@ func update() -> void:
 			rect.visible = true
 		else:
 			rect.visible = false
+			
+		var skip = texto.length() + 1
+		var underline_i = teclado.pos_cursor + skip
+		var underline_f = teclado.pos_cursor + skip + 4
 		
 		valor_str = "%s:%s %s%s" % [texto, params.base, params.sufixo, grandeza.unidade]
-		if id == Gerador.id_grandeza_sendo_editada and teclado.is_modo_digitacao:
-			valor_str = "%s:%s" % [texto, inserir_cursor(str(teclado.string_edicao))]
+		if id == Gerador.id_grandeza_sendo_editada:
+			if teclado.is_modo_digitacao:
+				valor_str = "%s:%s" % [texto, inserir_cursor(teclado.string_edicao)]
+			else:
+				valor_str = valor_str.insert(underline_i, "[u]")
+				valor_str = valor_str.insert(underline_f, "[/u]")
 		
 		label.text = valor_str
 		
-		# tambem checar com teclado.is_modo_edicao
-		#if id == Gerador.id_grandeza_sendo_editada:
-		#	pass
+	fez_update.emit()
 		
-		#var valor_str = str(grandeza.valor)
-		#label.text = "%s:%s" % [texto, valor_str]
+func _on_grandeza_alterada(_v) -> void:
+	update()

@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://yy1nia7yryjw"]
+[gd_scene load_steps=13 format=3 uid="uid://yy1nia7yryjw"]
 
-[ext_resource type="Texture2D" uid="uid://dfx010tt1i5eh" path="res://imagens/gerador5.png" id="1_iwfo7"]
+[ext_resource type="Texture2D" uid="uid://crlhcm0sq1h7h" path="res://imagens/gerador2..png" id="2_b30p5"]
+[ext_resource type="Texture2D" uid="uid://btm0khxsweo1" path="res://imagens/gerador4.png" id="3_jdavq"]
 [ext_resource type="Script" uid="uid://bdgbqvuim03kh" path="res://scripts/botoes_manager.gd" id="5_bhvw8"]
 [ext_resource type="Texture2D" uid="uid://br8qyckxp4std" path="res://imagens/teclado_temp.png" id="5_l8342"]
 [ext_resource type="Script" uid="uid://fvwgrm8oqp5p" path="res://scripts/teclado.gd" id="6_iwfo7"]
@@ -9,10 +10,8 @@
 [ext_resource type="Theme" uid="uid://bb8k8rx0st8f" path="res://themes/display_botoes.tres" id="8_vhipe"]
 [ext_resource type="Script" uid="uid://dxmpsvwk43dji" path="res://cenas/botoes_ondas.gd" id="10_iwfo7"]
 [ext_resource type="Script" uid="uid://bpjo7u0edabfe" path="res://scripts/labels_grandezas.gd" id="10_vhipe"]
-[ext_resource type="Theme" uid="uid://q2hipqgxwt60" path="res://themes/display_grandezas.tres" id="11_g6klm"]
 [ext_resource type="Script" uid="uid://7rmctpf3qwhj" path="res://addons/graph_2d/graph_2d.gd" id="12_g6klm"]
 [ext_resource type="Script" uid="uid://ph1agj6xl3u6" path="res://cenas/grafico_2.gd" id="12_iwfo7"]
-[ext_resource type="PackedScene" uid="uid://bjuol1tmatima" path="res://cenas/potenciometro_rotacao.tscn" id="13_g6klm"]
 
 [node name="main" type="Node"]
 
@@ -20,12 +19,12 @@
 visible = false
 position = Vector2(820, 360)
 scale = Vector2(1.188, 1.188)
-texture = ExtResource("1_iwfo7")
+texture = ExtResource("2_b30p5")
 
 [node name="background2" type="Sprite2D" parent="."]
 position = Vector2(820, 367)
 scale = Vector2(0.26, 0.26)
-texture = ExtResource("1_iwfo7")
+texture = ExtResource("3_jdavq")
 
 [node name="label_parametros" type="Label" parent="."]
 visible = false
@@ -379,15 +378,14 @@ autowrap_mode = 3
 [node name="labels_grandezas" type="Node" parent="."]
 script = ExtResource("10_vhipe")
 
-[node name="frequencia" type="RichTextLabel" parent="labels_grandezas"]
+[node name="frequencia" type="Label" parent="labels_grandezas"]
 offset_left = 131.0
 offset_top = 94.0
 offset_right = 591.0
 offset_bottom = 135.0
-theme = ExtResource("11_g6klm")
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-bbcode_enabled = true
-text = "Freq: 11111111111[u]1[/u]1"
+theme = ExtResource("8_vhipe")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Freq:11111111111"
 vertical_alignment = 1
 
 [node name="rect" type="ColorRect" parent="labels_grandezas/frequencia"]
@@ -401,38 +399,36 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.99607843, 0.5803922, 0.9372549, 1)
 
-[node name="periodo" type="RichTextLabel" parent="labels_grandezas"]
+[node name="periodo" type="Label" parent="labels_grandezas"]
 visible = false
 offset_left = 131.0
 offset_top = 94.0
 offset_right = 591.0
 offset_bottom = 135.0
-theme = ExtResource("11_g6klm")
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-bbcode_enabled = true
-text = "Period: 11111111111111"
+theme = ExtResource("8_vhipe")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Period: 9999999999"
 vertical_alignment = 1
 
 [node name="rect" type="ColorRect" parent="labels_grandezas/periodo"]
+visible = false
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -14.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.99607843, 0.5803922, 0.9372549, 1)
 
-[node name="fase" type="RichTextLabel" parent="labels_grandezas"]
+[node name="fase" type="Label" parent="labels_grandezas"]
 offset_left = 131.0
 offset_top = 135.0
 offset_right = 591.0
 offset_bottom = 176.0
-theme = ExtResource("11_g6klm")
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-bbcode_enabled = true
-text = "Phase: 22222222222"
+theme = ExtResource("8_vhipe")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Phase:22222222222"
 vertical_alignment = 1
 
 [node name="rect" type="ColorRect" parent="labels_grandezas/fase"]
@@ -446,15 +442,14 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.99607843, 0.5803922, 0.9372549, 1)
 
-[node name="amplitude" type="RichTextLabel" parent="labels_grandezas"]
+[node name="amplitude" type="Label" parent="labels_grandezas"]
 offset_left = 131.0
 offset_top = 176.0
 offset_right = 591.0
 offset_bottom = 217.0
-theme = ExtResource("11_g6klm")
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-bbcode_enabled = true
-text = "Ampl: 33333333"
+theme = ExtResource("8_vhipe")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Ampl:3333333333"
 vertical_alignment = 1
 
 [node name="rect" type="ColorRect" parent="labels_grandezas/amplitude"]
@@ -468,108 +463,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.99607843, 0.5803922, 0.9372549, 1)
 
-[node name="offset" type="RichTextLabel" parent="labels_grandezas"]
-offset_left = 131.0
-offset_top = 217.0
-offset_right = 591.0
-offset_bottom = 258.0
-theme = ExtResource("11_g6klm")
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-bbcode_enabled = true
-text = "Offset: 44444444"
-vertical_alignment = 1
-
-[node name="rect" type="ColorRect" parent="labels_grandezas/offset"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -14.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.99607843, 0.5803922, 0.9372549, 1)
-
-[node name="_frequencia" type="Label" parent="labels_grandezas"]
-visible = false
-offset_left = 131.0
-offset_top = 94.0
-offset_right = 591.0
-offset_bottom = 135.0
-theme = ExtResource("8_vhipe")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Freq:11111111111"
-vertical_alignment = 1
-metadata/_edit_lock_ = true
-
-[node name="_periodo" type="Label" parent="labels_grandezas"]
-visible = false
-offset_left = 131.0
-offset_top = 94.0
-offset_right = 591.0
-offset_bottom = 135.0
-theme = ExtResource("8_vhipe")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Period: 9999999999"
-vertical_alignment = 1
-
-[node name="rect" type="ColorRect" parent="labels_grandezas/_periodo"]
-visible = false
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.99607843, 0.5803922, 0.9372549, 1)
-
-[node name="_fase" type="Label" parent="labels_grandezas"]
-visible = false
-offset_left = 131.0
-offset_top = 135.0
-offset_right = 591.0
-offset_bottom = 176.0
-theme = ExtResource("8_vhipe")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Phase:22222222222"
-vertical_alignment = 1
-
-[node name="rect" type="ColorRect" parent="labels_grandezas/_fase"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -14.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.99607843, 0.5803922, 0.9372549, 1)
-
-[node name="_amplitude" type="Label" parent="labels_grandezas"]
-visible = false
-offset_left = 131.0
-offset_top = 176.0
-offset_right = 591.0
-offset_bottom = 217.0
-theme = ExtResource("8_vhipe")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Ampl:3333333333"
-vertical_alignment = 1
-
-[node name="rect" type="ColorRect" parent="labels_grandezas/_amplitude"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -14.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.99607843, 0.5803922, 0.9372549, 1)
-
-[node name="_offset" type="Label" parent="labels_grandezas"]
-visible = false
+[node name="offset" type="Label" parent="labels_grandezas"]
 offset_left = 131.0
 offset_top = 217.0
 offset_right = 591.0
@@ -579,7 +473,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Offset:4444444444"
 vertical_alignment = 1
 
-[node name="rect" type="ColorRect" parent="labels_grandezas/_offset"]
+[node name="rect" type="ColorRect" parent="labels_grandezas/offset"]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -631,25 +525,9 @@ offset_bottom = 642.0
 color = Color(0, 0, 1, 1)
 metadata/_edit_lock_ = true
 
-[node name="background2" type="ColorRect" parent="grafico2"]
-visible = false
-offset_left = 354.0
-offset_top = 263.0
-offset_right = 364.0
-offset_bottom = 639.0
-color = Color(0.60036963, 7.508397e-06, 0.40478706, 1)
-
 [node name="line" type="Line2D" parent="grafico2"]
 width = 5.0
-begin_cap_mode = 1
-end_cap_mode = 1
 antialiased = true
-
-[node name="pico" type="Line2D" parent="grafico2"]
-default_color = Color(1, 0, 0, 1)
-
-[node name="potenciometro_rotacao" parent="." instance=ExtResource("13_g6klm")]
-position = Vector2(1460, 113)
 
 [connection signal="pressed" from="botoes_atalho/freq_periodo" to="botoes_atalho" method="_on_freq_periodo_pressed"]
 [connection signal="pressed" from="botoes_atalho/amplitude_alta" to="botoes_atalho" method="_on_amplitude_alta_pressed"]
