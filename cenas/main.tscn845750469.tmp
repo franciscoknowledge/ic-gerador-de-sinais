@@ -1,18 +1,20 @@
-[gd_scene load_steps=11 format=3 uid="uid://yy1nia7yryjw"]
+[gd_scene load_steps=13 format=3 uid="uid://yy1nia7yryjw"]
 
-[ext_resource type="Script" uid="uid://dosyh44h6xfct" path="res://scripts/main.gd" id="1_l8342"]
+[ext_resource type="Script" uid="uid://q8q7e56uv1e2" path="res://scripts/main.gd" id="1_4fhxt"]
 [ext_resource type="Texture2D" uid="uid://crlhcm0sq1h7h" path="res://imagens/gerador2..png" id="2_b30p5"]
+[ext_resource type="Script" uid="uid://dtq40m8mss2g1" path="res://scripts/label_parametros.gd" id="3_5wwvk"]
+[ext_resource type="Script" uid="uid://bdgbqvuim03kh" path="res://scripts/botoes_manager.gd" id="3_b30p5"]
 [ext_resource type="Texture2D" uid="uid://btm0khxsweo1" path="res://imagens/gerador4.png" id="3_jdavq"]
-[ext_resource type="Script" uid="uid://bdgbqvuim03kh" path="res://scripts/botoes_manager.gd" id="5_bhvw8"]
+[ext_resource type="Script" uid="uid://ih71lglyfr0k" path="res://scripts/label_nomes_botoes.gd" id="4_bhvw8"]
 [ext_resource type="Texture2D" uid="uid://br8qyckxp4std" path="res://imagens/teclado_temp.png" id="5_l8342"]
-[ext_resource type="Script" uid="uid://fvwgrm8oqp5p" path="res://scripts/teclado.gd" id="6_iwfo7"]
-[ext_resource type="Script" path="res://scripts/labels_botoes.gd" id="7_v1d1r"]
-[ext_resource type="Theme" uid="uid://q2hipqgxwt60" path="res://themes/display_grandezas.tres" id="8_1yycb"]
-[ext_resource type="Script" uid="uid://bpjo7u0edabfe" path="res://cenas/labels_grandezas.gd" id="8_jdavq"]
+[ext_resource type="Script" uid="uid://bir6b7hyptlpy" path="res://scripts/teclado.gd" id="5_v1d1r"]
+[ext_resource type="Script" uid="uid://bw4lcu1kb087a" path="res://scripts/botoes_atalho.gd" id="8_v1d1r"]
+[ext_resource type="Script" uid="uid://dueky2l70ypx" path="res://scripts/labels_botoes.gd" id="10_jdavq"]
+[ext_resource type="Script" uid="uid://e3h3g1bdkhab" path="res://scripts/grafico.gd" id="11_iwfo7"]
 [ext_resource type="Script" uid="uid://7rmctpf3qwhj" path="res://addons/graph_2d/graph_2d.gd" id="12_g6klm"]
 
 [node name="main" type="Node"]
-script = ExtResource("1_l8342")
+script = ExtResource("1_4fhxt")
 
 [node name="background" type="Sprite2D" parent="."]
 visible = false
@@ -26,15 +28,16 @@ scale = Vector2(0.26, 0.26)
 texture = ExtResource("3_jdavq")
 
 [node name="label_parametros" type="Label" parent="."]
-offset_left = -400.0
-offset_top = -279.0
-offset_right = -177.0
-offset_bottom = 90.0
+offset_left = 126.0
+offset_top = 92.0
+offset_right = 349.0
+offset_bottom = 461.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
 text = "Freq:
 Fase:
 Amp:"
+script = ExtResource("3_5wwvk")
 
 [node name="label_nomes_botoes" type="Label" parent="."]
 offset_left = -370.0
@@ -44,9 +47,10 @@ offset_bottom = 424.0
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
 text = "botoes"
+script = ExtResource("4_bhvw8")
 
 [node name="teclado" type="Node" parent="."]
-script = ExtResource("6_iwfo7")
+script = ExtResource("5_v1d1r")
 
 [node name="numeros" type="Node" parent="teclado"]
 
@@ -204,7 +208,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="botoes" type="Node" parent="."]
-script = ExtResource("5_bhvw8")
+script = ExtResource("3_b30p5")
 
 [node name="bot_1" type="TextureButton" parent="botoes"]
 offset_left = 808.0
@@ -252,6 +256,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="botoes_atalho" type="Node" parent="."]
+script = ExtResource("8_v1d1r")
 
 [node name="freq_periodo" type="TextureButton" parent="botoes_atalho"]
 offset_left = 1082.0
@@ -290,7 +295,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="labels_botoes" type="Node" parent="."]
-script = ExtResource("7_v1d1r")
+script = ExtResource("10_jdavq")
 
 [node name="botao_1" type="Label" parent="labels_botoes"]
 offset_left = 590.0
@@ -352,127 +357,19 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="labels_grandezas" type="Node" parent="."]
-script = ExtResource("8_jdavq")
-
-[node name="frequencia" type="Label" parent="labels_grandezas"]
-offset_left = 131.0
-offset_top = 94.0
-offset_right = 591.0
-offset_bottom = 135.0
-theme = ExtResource("8_1yycb")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Freq:11111111111"
-vertical_alignment = 1
-
-[node name="rect" type="ColorRect" parent="labels_grandezas/frequencia"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -14.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.99607843, 0.5803922, 0.9372549, 1)
-
-[node name="periodo" type="Label" parent="labels_grandezas"]
-visible = false
-offset_left = 131.0
-offset_top = 94.0
-offset_right = 591.0
-offset_bottom = 135.0
-theme = ExtResource("8_1yycb")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Period: 9999999999"
-vertical_alignment = 1
-
-[node name="rect" type="ColorRect" parent="labels_grandezas/periodo"]
-visible = false
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.99607843, 0.5803922, 0.9372549, 1)
-
-[node name="fase" type="Label" parent="labels_grandezas"]
-offset_left = 131.0
-offset_top = 135.0
-offset_right = 591.0
-offset_bottom = 176.0
-theme = ExtResource("8_1yycb")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Phase:22222222222"
-vertical_alignment = 1
-
-[node name="rect" type="ColorRect" parent="labels_grandezas/fase"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -14.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.99607843, 0.5803922, 0.9372549, 1)
-
-[node name="amplitude" type="Label" parent="labels_grandezas"]
-offset_left = 131.0
-offset_top = 176.0
-offset_right = 591.0
-offset_bottom = 217.0
-theme = ExtResource("8_1yycb")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Ampl:3333333333"
-vertical_alignment = 1
-
-[node name="rect" type="ColorRect" parent="labels_grandezas/amplitude"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -14.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.99607843, 0.5803922, 0.9372549, 1)
-
-[node name="offset" type="Label" parent="labels_grandezas"]
-offset_left = 131.0
-offset_top = 217.0
-offset_right = 591.0
-offset_bottom = 258.0
-theme = ExtResource("8_1yycb")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Offset:4444444444"
-vertical_alignment = 1
-
-[node name="rect" type="ColorRect" parent="labels_grandezas/offset"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -14.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.99607843, 0.5803922, 0.9372549, 1)
-
 [node name="grafico" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 93.0
 offset_bottom = 146.0
+script = ExtResource("11_iwfo7")
 
 [node name="Graph2D" type="Control" parent="grafico"]
 anchors_preset = 0
-offset_left = -674.0
-offset_top = 176.0
-offset_right = -214.0
-offset_bottom = 589.0
+offset_left = 114.0
+offset_top = 242.0
+offset_right = 574.0
+offset_bottom = 655.0
 script = ExtResource("12_g6klm")
 show_x_ticks = false
 show_x_numbers = false

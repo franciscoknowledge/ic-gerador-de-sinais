@@ -1,11 +1,11 @@
 extends Node
 
+signal grandeza_alterada(grandeza: Grandeza)
 signal menu_alterado(novo: MenuResource)
-signal parametro_alterado(parametro: String, novo, antigo)
-signal cursor_movido()
-signal parametro_ativo_alterado(novo: Parametros, antigo: Parametros)
+signal id_grandeza_sendo_editada_alterada()
+signal digitacao_confirmada(mult: int)
 
-enum Parametros {
+enum ID_GRANDEZAS {
 	NENHUM = 0,
 	
 	FREQUENCIA = 1,
@@ -13,132 +13,85 @@ enum Parametros {
 	AMPLITUDE = 3,
 	PERIODO = 4,
 	OFFSET = 5,
+	SIMETRIA = 6,
 }
 
-var frequencia = 0:
-	set(value):
-		frequencia = value
-		parametro_alterado.emit("frequencia", value, frequencia)
-		
-var fase = 0:
-	set(value):
-		fase = value
-		parametro_alterado.emit("fase", value, fase)
-		
-var amplitude = 0:
-	set(value):
-		amplitude = value
-		parametro_alterado.emit("amplitude", value, amplitude)
-		
-var periodo = 0:
-	set(value):
-		periodo = value
-		parametro_alterado.emit("periodo", value, amplitude)
-		
-var offset = 0:
-	set(value):
-		offset = value
-		parametro_alterado.emit("offset", value, amplitude)
-	
-var parametro_posicao_cursor = 0
-
-var parametro_ativo = Parametros.NENHUM
 var menu_atual: MenuResource = MenuPrincipal.new()
+var menu_anterior: MenuResource
+
+var frequencia := Grandeza.new(0, 1e-6, 25e6, 17, "hz")
+var periodo := Grandeza.new(0, 40e-9, 1e6, 15, "s")
+var fase := Grandeza.new(0, -360, 360, 9, "°")
+var amplitude := Grandeza.new(10, 10e-3, 10, 8, "Vpp")
+var offset := Grandeza.new(0, 0, 0, 8, "V")
+var simetria := Grandeza.new(0, 0, 100, 8, "%")
+
+var id_grandeza_sendo_editada: ID_GRANDEZAS = ID_GRANDEZAS.NENHUM:
+	set(v):
+		var antigo = id_grandeza_sendo_editada
+		if antigo == v: return
+		
+		id_grandeza_sendo_editada = v
+		id_grandeza_sendo_editada_alterada.emit()
 
 func _ready() -> void:
-	menu_alterado.emit(menu_atual)
-
-# public
-func ir_para_menu(menu: MenuResource) -> void:
-	if (Gerador.menu_atual.get_script() == menu.get_script()):
-		return
+	print("gerador ready")
+	
+	for grandeza: Grandeza in [frequencia, periodo, fase, amplitude, offset, simetria]:
+		grandeza.alterado.connect(func(_a, _b): grandeza_alterada.emit(grandeza))
 		
-	if (menu.reseta_parametro):
-		Gerador.set_parametro_ativo(Parametros.NENHUM)
-	
-	print("trocando menu")
-	
-	menu_atual = menu
-	menu_alterado.emit(menu)
-	
-	#set_parametro_ativo(Parametros.NENHUM)
-	
-func botao_pressionado(indice: int) -> void:
-	if (not menu_atual):
-		print_debug("botao_pressionado, porém menu_atual é nulo")
-		return
-		
-	if (indice > menu_atual.botoes.size() - 1): 
-		print_debug("o indice é maior do que a lista de botões")
-		return
-		
-	if (not menu_atual.botoes[indice].acao):
-		print_debug("esse botao não tem uma ação gng")
-		return
-	
-	menu_atual.botoes[indice].acao.call()
-	
-func set_parametro_ativo(parametro: Parametros):
-	var antigo = parametro_ativo
-	
-	parametro_posicao_cursor = 0
-	parametro_ativo = parametro
-	cursor_movido.emit()
-	parametro_ativo_alterado.emit(parametro_ativo, antigo)
-	
-func set_posicao_cursor(pos):
-	var valor = get_valor_parametro_ativo()
-	if valor == null:
-		parametro_posicao_cursor = 0
-		return
-	
-	var valor_str = str(valor)
-	
-	var cursor_anterior = parametro_posicao_cursor
-	
-	var valor_min = 0
-	var valor_max = valor_str.length() + 1
-	
-	parametro_posicao_cursor = clamp(pos, valor_min, valor_max)
-	
-	var direcao = pos - cursor_anterior
-	var pos_virgula = -1
-	
-	for i in valor_str.length():
-		if valor_str[i] == ".":
-			pos_virgula = i
-			break
-	
-	if parametro_posicao_cursor == pos_virgula:
-		if direcao < 0:
-			parametro_posicao_cursor -= 1
-		elif direcao > 0:
-			parametro_posicao_cursor += 1
-			
-	if cursor_anterior != parametro_posicao_cursor:
-		cursor_movido.emit()
+	frequencia.valor = 1e6
 	
 # getters
-func get_chave_parametro(parametro: Parametros) -> String:
-	var param = parametro
-	var mapa = {
-		Parametros.FREQUENCIA: "frequencia",
-		Parametros.FASE: "fase",
-		Parametros.AMPLITUDE: "amplitude",
-		Parametros.PERIODO: "periodo",
-	}
+func get_grandeza(id: ID_GRANDEZAS) -> Grandeza:
+	match(id):
+		ID_GRANDEZAS.FREQUENCIA:
+			return frequencia
+		ID_GRANDEZAS.FASE:
+			return fase
+		ID_GRANDEZAS.AMPLITUDE:
+			return amplitude
+		ID_GRANDEZAS.PERIODO:
+			return periodo
+		ID_GRANDEZAS.OFFSET:
+			return offset
+		ID_GRANDEZAS.SIMETRIA:
+			return simetria
 	
-	if not (param in mapa):
-		return ""
+	return null
+
+func get_grandeza_editada() -> Grandeza:
+	return get_grandeza(id_grandeza_sendo_editada)
+
+# setters
+func set_grandeza_editada(id: ID_GRANDEZAS):
+	id_grandeza_sendo_editada = id
+
+func set_menu(menu: MenuResource) -> void:
+	# verificar se os menus são os mesmos (hacky!!)
+	if (menu_atual.get_script() == menu.get_script()): return
+	if menu.reseta_grandeza_editada:
+		id_grandeza_sendo_editada = ID_GRANDEZAS.NENHUM
 	
-	return mapa[param]
-
-func get_chave_parametro_ativo() -> String:
-	return get_chave_parametro(parametro_ativo)
-
-func get_valor_parametro_ativo():
-	var chave = get_chave_parametro_ativo()
-	if chave.is_empty():
+	menu_anterior = menu_atual
+	menu_atual = menu
+	
+	menu_alterado.emit(menu_atual)
+	
+# outros
+func botao_pressionado(i: int) -> void:
+	if (not menu_atual):
+		#print_debug("botao_pressionado, porém menu_atual é nulo")
+		return
+		
+	if (i >= menu_atual.botoes.size()):
+		return
+		
+	if (not menu_atual.botoes[i].acao):
+		#print_debug("esse botao não tem uma ação gng")
 		return
 	
-	return get(chave)
+	menu_atual.botoes[i].acao.call()
+	
+#func _grandeza_alterada(grandeza: Grandeza):
+#	grandeza_alterada.emit(grandeza)

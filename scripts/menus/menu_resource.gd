@@ -3,4 +3,4 @@ class_name MenuResource
 
 @export var titulo: String
 @export var botoes: Array[BotaoResource]
-@export var reseta_parametro: bool = false
+@export var reseta_grandeza_editada: bool = false

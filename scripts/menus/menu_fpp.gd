@@ -1,8 +1,9 @@
 extends MenuResource
 class_name MenuFpp
 
+# TODO: deve selecionar amplitude / periodo dependendo de qual foi selecionado anteriormente
 func _init() -> void:
-	reseta_parametro = true
+	reseta_grandeza_editada = false
 	
 	var botao_vazio = BotaoResource.new()
 	botao_vazio.label = ""
@@ -10,18 +11,19 @@ func _init() -> void:
 	
 	var botao_frequencia = BotaoResource.new()
 	botao_frequencia.label = "Frequency"
-	botao_frequencia.acao = func(): Gerador.set_parametro_ativo(Gerador.Parametros.FREQUENCIA)
+	botao_frequencia.acao = func(): Gerador.set_grandeza_editada(Gerador.ID_GRANDEZAS.FREQUENCIA)
 	
 	var botao_periodo = BotaoResource.new()
 	botao_periodo.label = "Period"
-	botao_periodo.acao = func(): Gerador.set_parametro_ativo(Gerador.Parametros.PERIODO)
+	botao_periodo.acao = func(): Gerador.set_grandeza_editada(Gerador.ID_GRANDEZAS.PERIODO)
 	
 	var botao_fase = BotaoResource.new()
 	botao_fase.label = "Phase"
-	botao_fase.acao = func(): Gerador.set_parametro_ativo(Gerador.Parametros.FASE)
+	botao_fase.acao = func(): Gerador.set_grandeza_editada(Gerador.ID_GRANDEZAS.FASE)
 	
 	var botao_retornar = BotaoResource.new()
 	botao_retornar.label = "Retornar"
-	botao_retornar.acao = func(): Gerador.ir_para_menu(MenuPrincipal.new())
+	botao_retornar.acao = func(): Gerador.set_menu(MenuPrincipal.new())
 	
-	botoes = [botao_frequencia, botao_periodo, botao_fase, botao_retornar]
+	# o botao vazio é onde seria periodo
+	botoes = [botao_frequencia, botao_vazio, botao_fase, botao_retornar]
