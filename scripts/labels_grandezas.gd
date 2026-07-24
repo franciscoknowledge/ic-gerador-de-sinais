@@ -9,7 +9,6 @@ signal fez_update
 @onready var l_amplitude = $amplitude
 @onready var l_offset = $offset
 
-# TODO: talvez tds esses dicts são ruins. outra hora procurar uma alternativa
 @onready var label_para_grandeza: Dictionary[RichTextLabel, Grandeza] = {
 	l_frequencia : Gerador.frequencia,
 	l_periodo : Gerador.periodo,
@@ -34,52 +33,13 @@ signal fez_update
 	l_offset : Gerador.ID_GRANDEZAS.OFFSET,
 }
 
-#var sufixos := {
-#	-9: "n",
-#	-6: "u",
-#	-3: "m",
-#	0: "",
-#	3: "k",
-#	6: "M",
-#	9: "G",
-#}
-
 func _ready() -> void:
 	update()
 	Gerador.grandeza_alterada.connect(_on_grandeza_alterada)
 	teclado.update.connect(update)
-
-#func get_notacao(grandeza: Grandeza) -> Dictionary:
-#	# tentando fazer de um jeito mais "estupido" pra nao ter erro com os floats
-#	var s = sign(grandeza.valor)
-#	var v = abs(grandeza.valor)
-#	var expoente: int = 0
-#	
-#	if v != 0:
-#		while v / 1000 >= 1:
-#			v /= 1000
-#			expoente += 3
-#			
-#		while v < 1:
-#			v *= 1000
-#			expoente -= 3
-#		
-#	var c = str(int(v))
-#		
-#	# TODO: esse padding com os digitos nn faz o minimo sentido pra nenhum outro parametro
-#	return {
-#		base = "%.*f" % [grandeza.digitos - 4 - c.length(), v * s],
-#		sufixo = sufixos[expoente],
-#		exp = expoente
-#	}
-
+	
 func inserir_cursor(string: String) -> String:
 	return string.insert(teclado.pos_cursor, "│")
-	
-# TODO: remover isso
-#func get_base(grandeza: Grandeza) -> String:
-#	var params = get_notacao(grandeza)
-#	return params.base
 
 func update() -> void:
 	for label in label_para_grandeza:
@@ -92,8 +52,10 @@ func update() -> void:
 		
 		var valor_str: String
 		if id == Gerador.id_grandeza_sendo_editada:
+			label.add_theme_color_override("default_color", Color.BLACK)
 			rect.visible = true
 		else:
+			label.add_theme_color_override("default_color", Color.WHITE)
 			rect.visible = false
 			
 		var skip = texto.length() + 1

@@ -24,6 +24,8 @@ Engenharia="*res://scripts/autoload/engenharia.gd"
 
 window/size/viewport_width=1640
 window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+window/stretch/scale_mode="integer"
 
 [editor_plugins]
 

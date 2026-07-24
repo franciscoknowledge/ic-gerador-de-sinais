@@ -61,6 +61,13 @@ position = Vector2(820, 367)
 scale = Vector2(0.26, 0.26)
 texture = ExtResource("1_iwfo7")
 
+[node name="display_background" type="ColorRect" parent="."]
+offset_left = 102.0
+offset_top = 69.0
+offset_right = 585.0
+offset_bottom = 665.0
+color = Color(0, 0.2666664, 1, 1)
+
 [node name="teclado" type="Node" parent="."]
 script = ExtResource("6_iwfo7")
 
@@ -374,7 +381,6 @@ offset_top = 94.0
 offset_right = 591.0
 offset_bottom = 135.0
 theme = ExtResource("11_g6klm")
-theme_override_colors/default_color = Color(0, 0, 0, 1)
 bbcode_enabled = true
 text = "Freq: 11111111111[u]1[/u]1"
 vertical_alignment = 1
@@ -388,7 +394,7 @@ anchor_bottom = 1.0
 offset_right = -14.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.99607843, 0.5803922, 0.9372549, 1)
+metadata/_edit_lock_ = true
 
 [node name="periodo" type="RichTextLabel" parent="labels_grandezas"]
 visible = false
@@ -397,7 +403,6 @@ offset_top = 94.0
 offset_right = 591.0
 offset_bottom = 135.0
 theme = ExtResource("11_g6klm")
-theme_override_colors/default_color = Color(0, 0, 0, 1)
 bbcode_enabled = true
 text = "Period: 11111111111111"
 vertical_alignment = 1
@@ -411,7 +416,6 @@ anchor_bottom = 1.0
 offset_right = -14.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.99607843, 0.5803922, 0.9372549, 1)
 
 [node name="fase" type="RichTextLabel" parent="labels_grandezas"]
 offset_left = 131.0
@@ -419,7 +423,6 @@ offset_top = 135.0
 offset_right = 591.0
 offset_bottom = 176.0
 theme = ExtResource("11_g6klm")
-theme_override_colors/default_color = Color(0, 0, 0, 1)
 bbcode_enabled = true
 text = "Phase: 22222222222"
 vertical_alignment = 1
@@ -433,7 +436,6 @@ anchor_bottom = 1.0
 offset_right = -14.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.99607843, 0.5803922, 0.9372549, 1)
 
 [node name="amplitude" type="RichTextLabel" parent="labels_grandezas"]
 offset_left = 131.0
@@ -441,7 +443,6 @@ offset_top = 176.0
 offset_right = 591.0
 offset_bottom = 217.0
 theme = ExtResource("11_g6klm")
-theme_override_colors/default_color = Color(0, 0, 0, 1)
 bbcode_enabled = true
 text = "Ampl: 33333333"
 vertical_alignment = 1
@@ -455,7 +456,6 @@ anchor_bottom = 1.0
 offset_right = -14.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.99607843, 0.5803922, 0.9372549, 1)
 
 [node name="offset" type="RichTextLabel" parent="labels_grandezas"]
 offset_left = 131.0
@@ -463,7 +463,6 @@ offset_top = 217.0
 offset_right = 591.0
 offset_bottom = 258.0
 theme = ExtResource("11_g6klm")
-theme_override_colors/default_color = Color(0, 0, 0, 1)
 bbcode_enabled = true
 text = "Offset: 44444444"
 vertical_alignment = 1
@@ -477,7 +476,6 @@ anchor_bottom = 1.0
 offset_right = -14.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.99607843, 0.5803922, 0.9372549, 1)
 
 [node name="_frequencia" type="Label" parent="labels_grandezas"]
 visible = false
@@ -613,6 +611,7 @@ stretch_mode = 0
 script = ExtResource("12_iwfo7")
 
 [node name="background" type="ColorRect" parent="grafico2"]
+visible = false
 offset_left = 129.0
 offset_top = 266.0
 offset_right = 579.0
@@ -620,10 +619,10 @@ offset_bottom = 642.0
 color = Color(0, 0, 1, 1)
 
 [node name="background_grafico" type="Panel" parent="grafico2"]
-offset_left = 201.0
+offset_left = 216.0
 offset_top = 287.0
-offset_right = 559.0
-offset_bottom = 534.0
+offset_right = 557.0
+offset_bottom = 597.0
 theme = SubResource("Theme_ocpn0")
 
 [node name="_background_grafico" type="ColorRect" parent="grafico2"]
@@ -662,6 +661,7 @@ end_cap_mode = 2
 offset_right = 40.0
 offset_bottom = 23.0
 theme = ExtResource("13_klgsu")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 
@@ -669,6 +669,7 @@ horizontal_alignment = 1
 offset_right = 40.0
 offset_bottom = 23.0
 theme = ExtResource("13_klgsu")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 
@@ -676,11 +677,12 @@ horizontal_alignment = 1
 offset_right = 40.0
 offset_bottom = 23.0
 theme = ExtResource("13_klgsu")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 
 [node name="linha_periodo" type="Line2D" parent="grafico2"]
-width = 2.7
+width = 4.0
 default_color = Color(0, 1, 0, 1)
 joint_mode = 2
 begin_cap_mode = 2
@@ -710,7 +712,7 @@ theme = ExtResource("13_klgsu")
 horizontal_alignment = 1
 
 [node name="linha_fase" type="Line2D" parent="grafico2"]
-width = 2.7
+width = 4.0
 default_color = Color(0, 1, 0, 1)
 joint_mode = 1
 begin_cap_mode = 2
