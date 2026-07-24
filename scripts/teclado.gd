@@ -68,7 +68,8 @@ func aplicar() -> void:
 		grandeza.valor = float(string_edicao)
 	sai_dessa()
 	
-	string_edicao = labels_grandezas.get_base(grandeza)
+	#string_edicao = labels_grandezas.get_base(grandeza)
+	string_edicao = Engenharia.formatar_grandeza(grandeza).base
 	
 func entrar_menu_unidades() -> void:
 	if not grandeza_para_menu.has(Gerador.id_grandeza_sendo_editada): return
@@ -181,15 +182,17 @@ func modificar_casa(val: int) -> void:
 		numeros.insert(pos_insercao, "1")
 		pos_cursor += 1
 		
-	var params = labels_grandezas.get_notacao(grandeza)
+	#var params = labels_grandezas.get_notacao(grandeza)
+	var params = Engenharia.formatar_grandeza(grandeza)
 	var base = "".join(numeros)
-	grandeza.valor = float(base) * pow(10, params.exp)
-	string_edicao = labels_grandezas.get_base(grandeza)
+	grandeza.valor = float(base) * pow(10, params.expoente)
+	string_edicao = Engenharia.formatar_grandeza(grandeza).base
 	
 	var pos_ponto = string_edicao.find(".")
 	
 	if pos_cursor == pos_ponto:
 		pos_cursor = pos_ponto - 1
+		
 	labels_grandezas.update()
 	
 func cancel() -> void:
@@ -216,13 +219,15 @@ func _set_grandeza() -> void:
 	sai_dessa()
 	
 	if not grandeza: return
-	string_edicao = labels_grandezas.get_base(grandeza)
+	#string_edicao = labels_grandezas.get_base(grandeza)
+	string_edicao = Engenharia.formatar_grandeza(grandeza).base
 
 func _digitacao_confirmada(mult: int) -> void:
 	if not grandeza: return
 	grandeza.valor = float(string_edicao) * pow(10, mult)
 	sai_dessa()
-	string_edicao = labels_grandezas.get_base(grandeza)
+	#string_edicao = labels_grandezas.get_base(grandeza)
+	string_edicao = Engenharia.formatar_grandeza(grandeza).base
 
 func _iniciar_edicao_se_necessario() -> void:
 	if is_modo_digitacao: return

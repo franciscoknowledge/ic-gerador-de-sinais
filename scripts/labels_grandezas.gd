@@ -34,52 +34,52 @@ signal fez_update
 	l_offset : Gerador.ID_GRANDEZAS.OFFSET,
 }
 
-var sufixos := {
-	-9: "n",
-	-6: "u",
-	-3: "m",
-	0: "",
-	3: "k",
-	6: "M",
-	9: "G",
-}
+#var sufixos := {
+#	-9: "n",
+#	-6: "u",
+#	-3: "m",
+#	0: "",
+#	3: "k",
+#	6: "M",
+#	9: "G",
+#}
 
-# TODO: adicionar um sinal para quando a posição do cursor muda
 func _ready() -> void:
 	update()
 	Gerador.grandeza_alterada.connect(_on_grandeza_alterada)
 	teclado.update.connect(update)
 
-func get_notacao(grandeza: Grandeza) -> Dictionary:
-	# tentando fazer de um jeito mais "estupido" pra nao ter erro com os floats
-	var s = sign(grandeza.valor)
-	var v = abs(grandeza.valor)
-	var expoente: int = 0
-	
-	if v != 0:
-		while v / 1000 >= 1:
-			v /= 1000
-			expoente += 3
-			
-		while v < 1:
-			v *= 1000
-			expoente -= 3
-		
-	var c = str(int(v))
-		
-	# TODO: esse padding com os digitos nn faz o minimo sentido pra nenhum outro parametro
-	return {
-		base = "%.*f" % [grandeza.digitos - 4 - c.length(), v * s],
-		sufixo = sufixos[expoente],
-		exp = expoente
-	}
+#func get_notacao(grandeza: Grandeza) -> Dictionary:
+#	# tentando fazer de um jeito mais "estupido" pra nao ter erro com os floats
+#	var s = sign(grandeza.valor)
+#	var v = abs(grandeza.valor)
+#	var expoente: int = 0
+#	
+#	if v != 0:
+#		while v / 1000 >= 1:
+#			v /= 1000
+#			expoente += 3
+#			
+#		while v < 1:
+#			v *= 1000
+#			expoente -= 3
+#		
+#	var c = str(int(v))
+#		
+#	# TODO: esse padding com os digitos nn faz o minimo sentido pra nenhum outro parametro
+#	return {
+#		base = "%.*f" % [grandeza.digitos - 4 - c.length(), v * s],
+#		sufixo = sufixos[expoente],
+#		exp = expoente
+#	}
 
 func inserir_cursor(string: String) -> String:
 	return string.insert(teclado.pos_cursor, "│")
 	
-func get_base(grandeza: Grandeza) -> String:
-	var params = get_notacao(grandeza)
-	return params.base
+# TODO: remover isso
+#func get_base(grandeza: Grandeza) -> String:
+#	var params = get_notacao(grandeza)
+#	return params.base
 
 func update() -> void:
 	for label in label_para_grandeza:
@@ -87,7 +87,7 @@ func update() -> void:
 		var texto = label_para_texto[label]
 		var id = label_para_id[label]
 		
-		var params = get_notacao(grandeza)
+		var params = Engenharia.formatar_grandeza(grandeza)
 		var rect = label.get_node("rect")
 		
 		var valor_str: String

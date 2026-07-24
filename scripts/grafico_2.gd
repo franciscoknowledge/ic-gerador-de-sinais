@@ -5,6 +5,14 @@ const FREQ = 0.036
 const STEP = 4.0
 const SIM = 50.0 # para triangulo
 
+enum TIPO_LINHA {
+	NENHUM = 0,
+	
+	PERIODO = 1,
+	FASE = 2,
+	PICO = 3,
+}
+
 @onready var background_grafico = $background_grafico
 
 @onready var linha_grafico = $linha_grafico
@@ -22,6 +30,13 @@ const SIM = 50.0 # para triangulo
 @onready var label_pico = $"linha_pico/label"
 @onready var label_periodo = $"linha_periodo/label"
 
+@onready var tipo_para_linha = {
+	TIPO_LINHA.NENHUM: null,
+	TIPO_LINHA.PERIODO: linha_periodo,
+	TIPO_LINHA.FASE: linha_fase,
+	TIPO_LINHA.PICO: linha_pico,
+}
+
 ## TODO: talvez arrumar um jeito melhor de fazer isso
 ##### stupid!!!!!!!
 @onready var _y_tamanho = background_grafico.size * 0.8
@@ -37,11 +52,14 @@ const SIM = 50.0 # para triangulo
 
 func _ready() -> void:
 	desenhar_grafico()
-	Gerador.tipo_de_onda_alterada.connect(desenhar_grafico)
-	Gerador.grandeza_alterada.connect(_on_grandeza_alterada)
 	
 	linha_x.points = [Vector2(X_MIN, CENTRO_Y), Vector2(X_MAX, CENTRO_Y)]
 	linha_y.points = [Vector2(CENTRO_X, Y_MIN), Vector2(CENTRO_X, Y_MAX)]
+	
+	set_linha_ativa(TIPO_LINHA.NENHUM)
+	Gerador.tipo_de_onda_alterada.connect(desenhar_grafico)
+	Gerador.grandeza_alterada.connect(_on_grandeza_alterada)
+	Gerador.id_grandeza_sendo_editada_alterada.connect(_on_id_grandeza_sendo_editada_alterada)
 
 func desenhar_grafico() -> void:
 	linha_grafico.clear_points()
@@ -55,6 +73,9 @@ func desenhar_grafico() -> void:
 	
 	# periodo em pixels
 	var periodo_px: float = (2 * PI) / FREQ
+	
+	var deslocamento_px: float = offset_fase * periodo_px
+	var x_zero: float = CENTRO_X - fposmod(deslocamento_px, periodo_px)
 	
 	var pico_x_tela: float = CENTRO_X
 	var pico_y_tela: float = CENTRO_Y
@@ -88,7 +109,7 @@ func desenhar_grafico() -> void:
 		
 		x_tela += STEP
 		
-	desenhar_linha_periodo(periodo_px)
+	desenhar_linha_periodo(x_zero, periodo_px)
 	desenhar_linha_pico(pico_x_tela, pico_y_tela)
 	desenhar_eixo_tensao()
 	desenhar_linha_fase()
@@ -111,15 +132,25 @@ func calc_trig(valor_entrada: float, offset_fase: float) -> float:
 	else:
 		return 1.0 - 2.0 * ((ciclo_normalizado - ponto_simetria) / (1.0 - ponto_simetria))
 
-func desenhar_linha_periodo(periodo_px: float) -> void:
-	var x_final = min(CENTRO_X + periodo_px, X_MAX)
+func desenhar_linha_periodo(x_zero: float, periodo_px: float) -> void:
+	var x_inicio = clamp(x_zero, X_MIN, X_MAX)
+	var x_final: float = clamp(x_zero + periodo_px, X_MIN, X_MAX)
 	
-	var label_x = ((CENTRO_X + x_final) / 2) - (label_periodo.size.x / 4)
+	var label_x = ((x_inicio + x_final) / 2) - (label_periodo.size.x / 4)
 	var label_y = CENTRO_Y - label_periodo.size.y - 10
 	
-	linha_periodo.points = [Vector2(CENTRO_X, CENTRO_Y), Vector2(x_final, CENTRO_Y)]
+	linha_periodo.points = [Vector2(x_inicio, CENTRO_Y), Vector2(x_final, CENTRO_Y)]
 	label_periodo.text = "1/f"
 	label_periodo.position = Vector2(label_x, label_y)
+	
+	#var x_final = min(CENTRO_X + periodo_px, X_MAX)
+	#
+	#var label_x = ((CENTRO_X + x_final) / 2) - (label_periodo.size.x / 4)
+	#var label_y = CENTRO_Y - label_periodo.size.y - 10
+	#
+	#linha_periodo.points = [Vector2(CENTRO_X, CENTRO_Y), Vector2(x_final, CENTRO_Y)]
+	#label_periodo.text = "1/f"
+	#label_periodo.position = Vector2(label_x, label_y)
 
 func desenhar_linha_pico(pico_x: float, pico_y: float) -> void:
 	linha_pico.points = [Vector2(pico_x, Y_MAX), Vector2(pico_x, pico_y)]
@@ -143,6 +174,25 @@ func desenhar_eixo_tensao() -> void:
 func desenhar_linha_fase() -> void:
 	var x_final = remap(abs(Gerador.fase.valor), 0, 360, X_MIN, CENTRO_X)
 	linha_fase.points = [Vector2(X_MIN + 2, CENTRO_Y), Vector2(x_final, CENTRO_Y)]
+	
+func set_linha_ativa(tipo: TIPO_LINHA) -> void:
+	for val in TIPO_LINHA.values():
+		var linha: Line2D = tipo_para_linha[val]
+		if not linha: continue
+		
+		if val == tipo:
+			linha.visible = true
+		else:
+			linha.visible = false
 
 func _on_grandeza_alterada(_grandeza: Grandeza) -> void:
 	desenhar_grafico()
+	
+func _on_id_grandeza_sendo_editada_alterada() -> void:
+	match Gerador.id_grandeza_sendo_editada:
+		Gerador.ID_GRANDEZAS.FREQUENCIA:
+			set_linha_ativa(TIPO_LINHA.PERIODO)
+		Gerador.ID_GRANDEZAS.FASE:
+			set_linha_ativa(TIPO_LINHA.FASE)
+		Gerador.ID_GRANDEZAS.AMPLITUDE:
+			set_linha_ativa(TIPO_LINHA.PICO)

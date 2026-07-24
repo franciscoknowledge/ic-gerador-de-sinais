@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Gerador="*res://scripts/autoload/gerador.gd"
+Engenharia="*res://scripts/autoload/engenharia.gd"
 
 [display]
 
