@@ -198,7 +198,7 @@ func desenhar_linha_fase() -> void:
 	linha_fase.points = [Vector2(X_MIN + 2, CENTRO_Y), Vector2(x_final, CENTRO_Y)]
 	
 func desenhar_tempo(periodo_px: float) -> void:
-	# periodo = 1/f
+								 # periodo = 1/f
 	var tempo_por_pixel: float = (1/Gerador.frequencia.valor) / periodo_px
 	var largura_total: float = X_MAX - X_MIN
 	var divisoes = labels_eixo_tempo.size() - 1

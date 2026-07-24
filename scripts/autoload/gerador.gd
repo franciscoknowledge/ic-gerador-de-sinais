@@ -135,10 +135,18 @@ func definir_limites_amplitude() -> void:
 	
 	amplitude.set_limites(MIN_AMPLITUDE, max_amplitude)
 	
-func _grandeza_alterada(grandeza: Grandeza):
-	if grandeza == amplitude:
-		definir_limites_offset()
-	elif grandeza == offset:
-		definir_limites_amplitude()
+func definir_frequencia() -> void:
+	Gerador.frequencia.valor = 1 / Gerador.periodo.valor
 	
+func definir_periodo() -> void:
+	Gerador.periodo.valor = 1 / Gerador.frequencia.valor
+
+# TODO: se o periodo for adicionado, isso tem que ser modificado :(((
+func _grandeza_alterada(grandeza: Grandeza):
+	match grandeza:
+		amplitude: definir_limites_offset()
+		offset: definir_limites_amplitude()
+		#frequencia: definir_periodo()
+		#periodo: definir_frequencia()
+
 	grandeza_alterada.emit(grandeza)

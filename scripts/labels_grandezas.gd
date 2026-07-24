@@ -33,11 +33,31 @@ signal fez_update
 	l_offset : Gerador.ID_GRANDEZAS.OFFSET,
 }
 
+@onready var label_clones: Dictionary[RichTextLabel, RichTextLabel] = {}
+
 func _ready() -> void:
+	init_label_clones()
 	update()
 	Gerador.grandeza_alterada.connect(_on_grandeza_alterada)
 	teclado.update.connect(update)
-	
+
+# HOLY HACKKKKKKKKKKKKKKKKKKKKKKK
+# tenho que fazer desse jeito pq o underline nativo do godot é terrivel
+func init_label_clones() -> void:
+	var labels = [l_frequencia, l_periodo, l_fase, l_amplitude, l_offset]
+	for label: RichTextLabel in labels:
+		var clone = label.duplicate()
+		clone.name = label.name + "_clone"
+		clone.text = ""
+		clone.add_theme_color_override("default_color", Color.BLACK)
+		clone.position += Vector2(-2, 3.2)
+		
+		clone.get_node("rect").queue_free()
+		clone.move_to_front()
+		
+		label_clones[label] = clone
+		add_child(clone)
+
 func inserir_cursor(string: String) -> String:
 	return string.insert(teclado.pos_cursor, "│")
 
@@ -48,29 +68,47 @@ func update() -> void:
 		var id = label_para_id[label]
 		
 		var params = Engenharia.formatar_grandeza(grandeza)
-		var rect = label.get_node("rect")
+		var rect: ColorRect = label.get_node("rect")
+		var clone: RichTextLabel = label_clones[label]
 		
 		var valor_str: String
+		var skip = texto.length() + 1
+		
 		if id == Gerador.id_grandeza_sendo_editada:
 			label.add_theme_color_override("default_color", Color.BLACK)
 			rect.visible = true
 		else:
 			label.add_theme_color_override("default_color", Color.WHITE)
+			clone.visible = false
 			rect.visible = false
-			
-		var skip = texto.length() + 1
-		var underline_i = teclado.pos_cursor + skip
-		var underline_f = teclado.pos_cursor + skip + 4
 		
 		valor_str = "%s:%s %s%s" % [texto, params.base, params.sufixo, grandeza.unidade]
 		if id == Gerador.id_grandeza_sendo_editada:
 			if teclado.is_modo_digitacao:
 				valor_str = "%s:%s" % [texto, inserir_cursor(teclado.string_edicao)]
+				clone.visible = false
 			else:
-				valor_str = valor_str.insert(underline_i, "[u]")
-				valor_str = valor_str.insert(underline_f, "[/u]")
+				clone.text = " ".repeat(skip + teclado.pos_cursor) + "▁"
+				clone.visible = true
 		
 		label.text = valor_str
+		
+		#var skip = texto.length() + 1
+		#var underline_i = teclado.pos_cursor + skip
+		#var underline_f = teclado.pos_cursor + skip + 4
+		#
+		#valor_str = "%s:%s %s%s" % [texto, params.base, params.sufixo, grandeza.unidade]
+		#if id == Gerador.id_grandeza_sendo_editada:
+		#	if teclado.is_modo_digitacao:
+		#		valor_str = "%s:%s" % [texto, inserir_cursor(teclado.string_edicao)]
+		#	else:
+		#		clone.text = "aaaaaaaaaa"
+		#		clone.visible = true
+		#	#else:
+		#	#	valor_str = valor_str.insert(underline_i, "[u]")
+		#	#	valor_str = valor_str.insert(underline_f, "[/u]")
+		#
+		#label.text = valor_str
 		
 	fez_update.emit()
 		
