@@ -1,3 +1,5 @@
+# script mt ruim mas pelo menos funciona do jeito certo
+
 extends Node
 signal update()
 
@@ -82,10 +84,6 @@ func mover_cursor(dir: int) -> void:
 		pos_max -= 1
 	
 	pos_cursor = clampi(pos_cursor + dir, 0, pos_max)
-	#var pos_sinal = string_edicao.find("-")
-	
-	#if pos_cursor == pos_sinal:
-	#	pos_cursor = pos_sinal + 1
 	
 	if not is_modo_digitacao and pos_cursor == pos_ponto:
 		pos_cursor += dir

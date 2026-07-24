@@ -1,0 +1,10 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://chq28oyjeecxx"]
+
+[ext_resource type="FontFile" uid="uid://wivxycajnx6u" path="res://fonts/PxPlus_IBM_BIOS.ttf" id="1_w2p3u"]
+
+[resource]
+default_font = ExtResource("1_w2p3u")
+default_font_size = 11
+Label/colors/font_color = Color(0, 1, 0, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 5

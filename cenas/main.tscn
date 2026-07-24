@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://yy1nia7yryjw"]
+[gd_scene load_steps=17 format=3 uid="uid://yy1nia7yryjw"]
 
 [ext_resource type="Texture2D" uid="uid://dfx010tt1i5eh" path="res://imagens/gerador5.png" id="1_iwfo7"]
 [ext_resource type="Script" uid="uid://bdgbqvuim03kh" path="res://scripts/botoes_manager.gd" id="5_bhvw8"]
@@ -13,6 +13,18 @@
 [ext_resource type="Script" uid="uid://7rmctpf3qwhj" path="res://addons/graph_2d/graph_2d.gd" id="12_g6klm"]
 [ext_resource type="Script" uid="uid://ph1agj6xl3u6" path="res://cenas/grafico_2.gd" id="12_iwfo7"]
 [ext_resource type="PackedScene" uid="uid://bjuol1tmatima" path="res://cenas/potenciometro_rotacao.tscn" id="13_g6klm"]
+[ext_resource type="Theme" uid="uid://chq28oyjeecxx" path="res://themes/display_grafico_labels.tres" id="13_klgsu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_klgsu"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Theme" id="Theme_ocpn0"]
+Panel/styles/panel = SubResource("StyleBoxFlat_klgsu")
 
 [node name="main" type="Node"]
 
@@ -629,24 +641,89 @@ offset_top = 266.0
 offset_right = 579.0
 offset_bottom = 642.0
 color = Color(0, 0, 1, 1)
-metadata/_edit_lock_ = true
 
-[node name="background2" type="ColorRect" parent="grafico2"]
+[node name="background_grafico" type="Panel" parent="grafico2"]
+offset_left = 211.0
+offset_top = 292.0
+offset_right = 569.0
+offset_bottom = 539.0
+theme = SubResource("Theme_ocpn0")
+
+[node name="_background_grafico" type="ColorRect" parent="grafico2"]
 visible = false
-offset_left = 354.0
-offset_top = 263.0
-offset_right = 364.0
-offset_bottom = 639.0
-color = Color(0.60036963, 7.508397e-06, 0.40478706, 1)
+anchors_preset = -1
+anchor_right = 0.024
+anchor_bottom = 0.056
+offset_left = 211.0
+offset_top = 292.0
+offset_right = 529.64
+offset_bottom = 498.68
+color = Color(0, 0, 0, 1)
 
-[node name="line" type="Line2D" parent="grafico2"]
-width = 5.0
-begin_cap_mode = 1
-end_cap_mode = 1
-antialiased = true
+[node name="linha_x" type="Line2D" parent="grafico2"]
+width = 1.2
+default_color = Color(0.5132329, 0.5132329, 0.5132329, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
 
-[node name="pico" type="Line2D" parent="grafico2"]
-default_color = Color(1, 0, 0, 1)
+[node name="linha_y" type="Line2D" parent="grafico2"]
+width = 1.2
+default_color = Color(0.5132329, 0.5132329, 0.5132329, 1)
+joint_mode = 2
+
+[node name="linha_grafico" type="Line2D" parent="grafico2"]
+width = 3.5
+default_color = Color(1, 1, 0, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="eixo" type="Node" parent="grafico2"]
+
+[node name="max" type="Label" parent="grafico2/eixo"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("13_klgsu")
+
+[node name="mid" type="Label" parent="grafico2/eixo"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("13_klgsu")
+
+[node name="min" type="Label" parent="grafico2/eixo"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("13_klgsu")
+
+[node name="linha_periodo" type="Line2D" parent="grafico2"]
+visible = false
+width = 5.5
+default_color = Color(0, 1, 0, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="label" type="Label" parent="grafico2/linha_periodo"]
+offset_left = 89.0
+offset_top = -72.0
+offset_right = 129.0
+offset_bottom = -49.0
+theme = ExtResource("13_klgsu")
+text = "debug : 3"
+
+[node name="linha_pico" type="Line2D" parent="grafico2"]
+visible = false
+width = 5.5
+default_color = Color(0, 1, 0, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="label" type="Label" parent="grafico2/linha_pico"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("13_klgsu")
 
 [node name="potenciometro_rotacao" parent="." instance=ExtResource("13_g6klm")]
 position = Vector2(1460, 113)
