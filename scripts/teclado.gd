@@ -53,8 +53,6 @@ func _ready() -> void:
 #	print(string_edicao)
 
 func sai_dessa() -> void:
-	print("sai dessa")
-	
 	pos_cursor = 0
 	string_edicao = ""
 	is_modo_digitacao = false

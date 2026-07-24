@@ -30,6 +30,15 @@ enum TIPO_LINHA {
 @onready var label_pico = $"linha_pico/label"
 @onready var label_periodo = $"linha_periodo/label"
 
+@onready var label_eixo_tempo_sufixo = $"eixo_tempo/sufixo"
+@onready var labels_eixo_tempo = [
+	$"eixo_tempo/t0",
+	$"eixo_tempo/t1",
+	$"eixo_tempo/t2",
+	$"eixo_tempo/t3",
+	$"eixo_tempo/t4",
+]
+
 @onready var tipo_para_linha = {
 	TIPO_LINHA.NENHUM: null,
 	TIPO_LINHA.PERIODO: linha_periodo,
@@ -44,8 +53,11 @@ enum TIPO_LINHA {
 
 @onready var X_MIN: float = (background_grafico.position.x + 5)
 @onready var X_MAX: float = (X_MIN + background_grafico.size.x - 9)
+
 @onready var Y_MIN: float = (_y_pos.y)
 @onready var Y_MAX: float = (Y_MIN + _y_tamanho.y)
+
+@onready var BG_MAX: float = (background_grafico.position.y + background_grafico.size.y)
 
 @onready var CENTRO_X: float = (X_MIN + X_MAX) / 2
 @onready var CENTRO_Y: float = (Y_MIN + Y_MAX) / 2
@@ -113,6 +125,7 @@ func desenhar_grafico() -> void:
 	desenhar_linha_pico(pico_x_tela, pico_y_tela)
 	desenhar_eixo_tensao()
 	desenhar_linha_fase()
+	desenhar_tempo(periodo_px)
 
 func calc_sin(valor_entrada: float, offset_fase: float) -> float:
 	var ciclo_normalizado: float = (valor_entrada / (2.0 * PI)) + offset_fase
@@ -162,19 +175,53 @@ func desenhar_eixo_tensao() -> void:
 	var y_max = Y_MIN
 	var y_min = Y_MAX
 	
-	label_v_max.text = "%.2fV" % [(offset + amplitude_pico)]
-	label_v_mid.text = "%.2fV" % [offset]
-	label_v_min.text = "%.2fV" % [(offset - amplitude_pico)]
+	var labels = [label_v_max, label_v_mid, label_v_min] 
+	var valores = [offset + amplitude_pico, offset, offset - amplitude_pico]
+	for i in range(3):
+		var l = labels[i]
+		var v = valores[i]
+		var params = Engenharia.formatar_numero(v, 2)
+		
+		l.text = "%s%sV" % [params.base, params.sufixo]
 	
-	# -72 é pra posicionar fora do gráfico
-	label_v_max.position = Vector2(X_MIN - 72, y_max - label_v_max.size.y / 2)
-	label_v_mid.position = Vector2(X_MIN - 72, CENTRO_Y - label_v_mid.size.y / 2)
-	label_v_min.position = Vector2(X_MIN - 72, y_min - label_v_min.size.y / 2)
+	#label_v_max.text = "%.2fV" % [(offset + amplitude_pico)]
+	#label_v_mid.text = "%.2fV" % [offset]
+	#label_v_min.text = "%.2fV" % [(offset - amplitude_pico)]
+	
+	# -99 é pra posicionar fora do gráfico
+	label_v_max.position = Vector2(X_MIN - 99, y_max - label_v_max.size.y / 2)
+	label_v_mid.position = Vector2(X_MIN - 99, CENTRO_Y - label_v_mid.size.y / 2)
+	label_v_min.position = Vector2(X_MIN - 99, y_min - label_v_min.size.y / 2)
 	
 func desenhar_linha_fase() -> void:
 	var x_final = remap(abs(Gerador.fase.valor), 0, 360, X_MIN, CENTRO_X)
 	linha_fase.points = [Vector2(X_MIN + 2, CENTRO_Y), Vector2(x_final, CENTRO_Y)]
 	
+func desenhar_tempo(periodo_px: float) -> void:
+	# periodo = 1/f
+	var tempo_por_pixel: float = (1/Gerador.frequencia.valor) / periodo_px
+	var largura_total: float = X_MAX - X_MIN
+	var divisoes = labels_eixo_tempo.size() - 1
+	
+	var tempo_max = largura_total * tempo_por_pixel
+	var expoente = Engenharia.formatar_numero(tempo_max, 1).expoente
+	
+	for i in range(labels_eixo_tempo.size()):
+		var x: float = X_MIN + (largura_total * i / divisoes)
+		var tempo: float = (x - X_MIN) * tempo_por_pixel
+		
+		var label = labels_eixo_tempo[i]
+		var params = Engenharia.formatar_numero_no_expoente(tempo, expoente, 1)
+		
+		label.text = "%s" % [params.base]#, params.sufixo]
+		label.position = Vector2(x - label.size.x / 2, BG_MAX + 6)
+		
+	var suf_x = CENTRO_X - label_eixo_tempo_sufixo.size.x / 2
+	var suf_y = BG_MAX + 40
+	label_eixo_tempo_sufixo.position = Vector2(suf_x, suf_y)
+	label_eixo_tempo_sufixo.text = "%ss" % [Engenharia.get_sufixo(expoente)]
+	#print(label_eixo_tempo_sufixo.position)
+
 func set_linha_ativa(tipo: TIPO_LINHA) -> void:
 	for val in TIPO_LINHA.values():
 		var linha: Line2D = tipo_para_linha[val]
@@ -196,3 +243,5 @@ func _on_id_grandeza_sendo_editada_alterada() -> void:
 			set_linha_ativa(TIPO_LINHA.FASE)
 		Gerador.ID_GRANDEZAS.AMPLITUDE:
 			set_linha_ativa(TIPO_LINHA.PICO)
+		_:
+			set_linha_ativa(TIPO_LINHA.NENHUM)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://yy1nia7yryjw"]
+[gd_scene load_steps=17 format=3 uid="uid://yy1nia7yryjw"]
 
 [ext_resource type="Texture2D" uid="uid://dfx010tt1i5eh" path="res://imagens/gerador5.png" id="1_iwfo7"]
 [ext_resource type="Script" uid="uid://bdgbqvuim03kh" path="res://scripts/botoes_manager.gd" id="5_bhvw8"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://ph1agj6xl3u6" path="res://scripts/grafico_2.gd" id="12_iwfo7"]
 [ext_resource type="PackedScene" uid="uid://bjuol1tmatima" path="res://cenas/potenciometro_rotacao.tscn" id="13_g6klm"]
 [ext_resource type="Theme" uid="uid://chq28oyjeecxx" path="res://themes/display_grafico_labels.tres" id="13_klgsu"]
+[ext_resource type="Theme" uid="uid://dmncwh7v4nqna" path="res://themes/display_eixo_tempo.tres" id="13_ocpn0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_klgsu"]
 bg_color = Color(0, 0, 0, 1)
@@ -619,10 +620,10 @@ offset_bottom = 642.0
 color = Color(0, 0, 1, 1)
 
 [node name="background_grafico" type="Panel" parent="grafico2"]
-offset_left = 211.0
-offset_top = 292.0
-offset_right = 569.0
-offset_bottom = 539.0
+offset_left = 201.0
+offset_top = 287.0
+offset_right = 559.0
+offset_bottom = 534.0
 theme = SubResource("Theme_ocpn0")
 
 [node name="_background_grafico" type="ColorRect" parent="grafico2"]
@@ -661,22 +662,24 @@ end_cap_mode = 2
 offset_right = 40.0
 offset_bottom = 23.0
 theme = ExtResource("13_klgsu")
+theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 
 [node name="mid" type="Label" parent="grafico2/eixo"]
 offset_right = 40.0
 offset_bottom = 23.0
 theme = ExtResource("13_klgsu")
+theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 
 [node name="min" type="Label" parent="grafico2/eixo"]
 offset_right = 40.0
 offset_bottom = 23.0
 theme = ExtResource("13_klgsu")
+theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 
 [node name="linha_periodo" type="Line2D" parent="grafico2"]
-visible = false
 width = 2.7
 default_color = Color(0, 1, 0, 1)
 joint_mode = 2
@@ -693,7 +696,6 @@ text = "debug : 3"
 horizontal_alignment = 1
 
 [node name="linha_pico" type="Line2D" parent="grafico2"]
-visible = false
 width = 4.0
 default_color = Color(0, 1, 0, 1)
 joint_mode = 1
@@ -708,13 +710,48 @@ theme = ExtResource("13_klgsu")
 horizontal_alignment = 1
 
 [node name="linha_fase" type="Line2D" parent="grafico2"]
-visible = false
 width = 2.7
 default_color = Color(0, 1, 0, 1)
 joint_mode = 1
 begin_cap_mode = 2
 end_cap_mode = 2
 round_precision = 12
+
+[node name="eixo_tempo" type="Node" parent="grafico2"]
+
+[node name="sufixo" type="Label" parent="grafico2/eixo_tempo"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("13_ocpn0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="t0" type="Label" parent="grafico2/eixo_tempo"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("13_ocpn0")
+
+[node name="t1" type="Label" parent="grafico2/eixo_tempo"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("13_ocpn0")
+
+[node name="t2" type="Label" parent="grafico2/eixo_tempo"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("13_ocpn0")
+
+[node name="t3" type="Label" parent="grafico2/eixo_tempo"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("13_ocpn0")
+
+[node name="t4" type="Label" parent="grafico2/eixo_tempo"]
+offset_left = 83.0
+offset_top = -277.0
+offset_right = 123.0
+offset_bottom = -254.0
+theme = ExtResource("13_ocpn0")
 
 [node name="potenciometro_rotacao" parent="." instance=ExtResource("13_g6klm")]
 position = Vector2(1460, 113)
