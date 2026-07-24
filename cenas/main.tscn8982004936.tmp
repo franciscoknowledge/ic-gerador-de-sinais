@@ -732,7 +732,6 @@ theme = ExtResource("13_klgsu")
 horizontal_alignment = 1
 
 [node name="linha_fase" type="Line2D" parent="grafico2"]
-visible = false
 width = 2.7
 default_color = Color(0, 1, 0, 1)
 joint_mode = 1

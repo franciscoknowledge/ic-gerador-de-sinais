@@ -1,7 +1,7 @@
 extends Node
 
 # constantes para gerar uma onda com mesmas proporções
-const FREQ = 0.04
+const FREQ = 0.036
 const STEP = 4.0
 const SIM = 50.0 # para triangulo
 
@@ -10,6 +10,7 @@ const SIM = 50.0 # para triangulo
 @onready var linha_grafico = $linha_grafico
 @onready var linha_pico = $linha_pico
 @onready var linha_periodo = $linha_periodo
+@onready var linha_fase = $linha_fase
 
 @onready var linha_x = $linha_x
 @onready var linha_y = $linha_y
@@ -90,7 +91,8 @@ func desenhar_grafico() -> void:
 	desenhar_linha_periodo(periodo_px)
 	desenhar_linha_pico(pico_x_tela, pico_y_tela)
 	desenhar_eixo_tensao()
-		
+	desenhar_linha_fase()
+
 func calc_sin(valor_entrada: float, offset_fase: float) -> float:
 	var ciclo_normalizado: float = (valor_entrada / (2.0 * PI)) + offset_fase
 	return sin(ciclo_normalizado * 2.0 * PI)
@@ -137,6 +139,10 @@ func desenhar_eixo_tensao() -> void:
 	label_v_max.position = Vector2(X_MIN - 72, y_max - label_v_max.size.y / 2)
 	label_v_mid.position = Vector2(X_MIN - 72, CENTRO_Y - label_v_mid.size.y / 2)
 	label_v_min.position = Vector2(X_MIN - 72, y_min - label_v_min.size.y / 2)
+	
+func desenhar_linha_fase() -> void:
+	var x_final = remap(abs(Gerador.fase.valor), 0, 360, X_MIN, CENTRO_X)
+	linha_fase.points = [Vector2(X_MIN + 2, CENTRO_Y), Vector2(x_final, CENTRO_Y)]
 
 func _on_grandeza_alterada(_grandeza: Grandeza) -> void:
 	desenhar_grafico()

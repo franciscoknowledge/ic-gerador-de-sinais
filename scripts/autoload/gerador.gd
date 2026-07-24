@@ -23,11 +23,12 @@ enum ID_TIPO_ONDA {
 	TRIG = 3,
 }
 
-# a frequencia é a unica que muda seus limites, então achei melhor
-# colocar as constantes apenas pra ela
 const MAX_FREQ_SIN_QUAD = 25e6
 const MAX_FREQ_TRIG = 500e3
 const MIN_FREQ = 1e-6
+
+const MAX_AMPLITUDE = 10
+const MIN_AMPLITUDE = 10e-3
 
 var menu_atual: MenuResource = MenuPrincipal.new()
 var menu_anterior: MenuResource
@@ -35,7 +36,7 @@ var menu_anterior: MenuResource
 var frequencia := Grandeza.new(1e3, MIN_FREQ, MAX_FREQ_SIN_QUAD, 17, "hz")
 var periodo := Grandeza.new(0, 40e-9, 1e6, 15, "s")
 var fase := Grandeza.new(0, -360, 360, 9, "°")
-var amplitude := Grandeza.new(5, 10e-3, 10, 8, "Vpp")
+var amplitude := Grandeza.new(5, MIN_AMPLITUDE, MAX_AMPLITUDE, 8, "Vpp")
 var offset := Grandeza.new(0, 0, 0, 8, "V")
 var simetria := Grandeza.new(0, 0, 100, 8, "%")
 
@@ -117,6 +118,27 @@ func botao_pressionado(i: int) -> void:
 		return
 	
 	menu_atual.botoes[i].acao.call()
+
+# TODO: checar com o equipamento real se essa função bate 100% com a realidade
+# quando a amplitude muda
+func definir_limites_offset() -> void:
+	var v_referencia: float = MAX_AMPLITUDE / 2.0
+	var max_offset = v_referencia - (amplitude.valor / 2)
+	var min_offset = -max_offset
+	
+	offset.set_limites(min_offset, max_offset)
+
+# quando o offset muda
+func definir_limites_amplitude() -> void:
+	var v_referencia: float = MAX_AMPLITUDE / 2.0
+	var max_amplitude = 2 * (v_referencia - abs(offset.valor))
+	
+	amplitude.set_limites(MIN_AMPLITUDE, max_amplitude)
 	
 func _grandeza_alterada(grandeza: Grandeza):
+	if grandeza == amplitude:
+		definir_limites_offset()
+	elif grandeza == offset:
+		definir_limites_amplitude()
+	
 	grandeza_alterada.emit(grandeza)
