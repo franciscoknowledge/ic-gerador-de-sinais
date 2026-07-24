@@ -1,4 +1,5 @@
 extends Node
+######## unused
 
 func _ready() -> void:
 	$botoes.botao_pressionado.connect(_botao_display_pressionado)

@@ -32,10 +32,10 @@ const MIN_FREQ = 1e-6
 var menu_atual: MenuResource = MenuPrincipal.new()
 var menu_anterior: MenuResource
 
-var frequencia := Grandeza.new(0, MIN_FREQ, MAX_FREQ_SIN_QUAD, 17, "hz")
+var frequencia := Grandeza.new(1e3, MIN_FREQ, MAX_FREQ_SIN_QUAD, 17, "hz")
 var periodo := Grandeza.new(0, 40e-9, 1e6, 15, "s")
 var fase := Grandeza.new(0, -360, 360, 9, "°")
-var amplitude := Grandeza.new(10, 10e-3, 10, 8, "Vpp")
+var amplitude := Grandeza.new(5, 10e-3, 10, 8, "Vpp")
 var offset := Grandeza.new(0, 0, 0, 8, "V")
 var simetria := Grandeza.new(0, 0, 100, 8, "%")
 
@@ -62,9 +62,9 @@ func _ready() -> void:
 	print("gerador ready")
 	
 	for grandeza: Grandeza in [frequencia, periodo, fase, amplitude, offset, simetria]:
-		grandeza.alterado.connect(func(_a, _b): grandeza_alterada.emit(grandeza))
+		grandeza.alterado.connect(func(_a, _b): _grandeza_alterada(grandeza))
 		
-	frequencia.valor = 1e6
+	#frequencia.valor = 1e6
 	
 # getters
 func get_grandeza(id: ID_GRANDEZAS) -> Grandeza:
@@ -118,5 +118,5 @@ func botao_pressionado(i: int) -> void:
 	
 	menu_atual.botoes[i].acao.call()
 	
-#func _grandeza_alterada(grandeza: Grandeza):
-#	grandeza_alterada.emit(grandeza)
+func _grandeza_alterada(grandeza: Grandeza):
+	grandeza_alterada.emit(grandeza)

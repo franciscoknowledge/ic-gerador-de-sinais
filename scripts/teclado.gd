@@ -142,11 +142,11 @@ func modificar_casa(val: int) -> void:
 	if pos_cursor < 0 or pos_cursor >= string_edicao.length(): return
 	if string_edicao[pos_cursor] == "." or string_edicao[pos_cursor] == "-": return
 	
-	var tem_sinal := string_edicao.begins_with("-")
-	var primeiro_digito := 1 if tem_sinal else 0
+	var tem_sinal = string_edicao.begins_with("-")
+	var primeiro_digito = 1 if tem_sinal else 0
 	
 	if pos_cursor == primeiro_digito:
-		var atual := int(string_edicao[pos_cursor])
+		var atual = int(string_edicao[pos_cursor])
 		if atual + val <= 0:
 			return
 			
@@ -154,14 +154,14 @@ func modificar_casa(val: int) -> void:
 	for i in range(string_edicao.length()):
 		numeros.append(string_edicao[i])
 		
-	var carry := val
-	var i := pos_cursor
+	var carry = val
+	var i = pos_cursor
 	while carry != 0 and i >= 0:
 		if numeros[i] == "." or numeros[i] == "-":
 			i -= 1
 			continue
 			
-		var n := int(numeros[i]) + carry
+		var n = int(numeros[i]) + carry
 		if n > 9:
 			n -= 10
 			carry = 1

@@ -1,16 +1,8 @@
 extends Node
 
-# esses são os valores hard-coded antigos, agora são usadas as proporçoes do
-# background_grafico
-#const X_MIN = 140.0
-#const X_MAX = 570.0
-#const Y_MIN = 400.0
-#const Y_MAX = 630.0
-#const Y_SHIFT = 50.0 # deslocamento da onda na tela
-
 # constantes para gerar uma onda com mesmas proporções
 const FREQ = 0.04
-const STEP = 1.0
+const STEP = 4.0
 const SIM = 50.0 # para triangulo
 
 @onready var background_grafico = $background_grafico
@@ -30,14 +22,14 @@ const SIM = 50.0 # para triangulo
 @onready var label_periodo = $"linha_periodo/label"
 
 ## TODO: talvez arrumar um jeito melhor de fazer isso
-##### stupid
-@onready var y_tamanho = background_grafico.size * 0.8
-@onready var y_pos = background_grafico.position + y_tamanho / 8
+##### stupid!!!!!!!
+@onready var _y_tamanho = background_grafico.size * 0.8
+@onready var _y_pos = background_grafico.position + _y_tamanho / 8
 
 @onready var X_MIN: float = (background_grafico.position.x + 5)
 @onready var X_MAX: float = (X_MIN + background_grafico.size.x - 9)
-@onready var Y_MIN: float = (y_pos.y)
-@onready var Y_MAX: float = (Y_MIN + y_tamanho.y)
+@onready var Y_MIN: float = (_y_pos.y)
+@onready var Y_MAX: float = (Y_MIN + _y_tamanho.y)
 
 @onready var CENTRO_X: float = (X_MIN + X_MAX) / 2
 @onready var CENTRO_Y: float = (Y_MIN + Y_MAX) / 2
@@ -81,7 +73,7 @@ func desenhar_grafico() -> void:
 			Gerador.ID_TIPO_ONDA.QUAD:
 				y_matematico = calc_quad(input, offset_fase)
 			Gerador.ID_TIPO_ONDA.TRIG:
-				y_matematico = calc_trig(input, offset_fase, SIM)
+				y_matematico = calc_trig(input, offset_fase)
 			
 		var y_normalizado: float = (-y_matematico + 1.0) / 2.0
 		var y_tela: float = lerp(Y_MIN, Y_MAX, y_normalizado)
@@ -108,9 +100,9 @@ func calc_quad(valor_entrada: float, offset_fase: float) -> float:
 	var seno_base: float = sin(ciclo_normalizado * 2.0 * PI)
 	return sign(seno_base)
 
-func calc_trig(valor_entrada: float, offset_fase: float, simetria: float) -> float:
+func calc_trig(valor_entrada: float, offset_fase: float) -> float:
 	var ciclo_normalizado: float = fposmod((valor_entrada / (2.0 * PI)) + offset_fase, 1.0)
-	var ponto_simetria: float = clamp(simetria / 100.0, 0.01, 0.99)
+	var ponto_simetria: float = clamp(SIM / 100.0, 0.01, 0.99)
 
 	if ciclo_normalizado < ponto_simetria:
 		return -1.0 + 2.0 * (ciclo_normalizado / ponto_simetria)
@@ -118,13 +110,6 @@ func calc_trig(valor_entrada: float, offset_fase: float, simetria: float) -> flo
 		return 1.0 - 2.0 * ((ciclo_normalizado - ponto_simetria) / (1.0 - ponto_simetria))
 
 func desenhar_linha_periodo(periodo_px: float) -> void:
-	#var y = Y_MIN
-	
-	#var label_x = (CENTRO_X + x) / 2 - labell.size.x / 2
-	#var label_y = y
-	#$linha_periodo/label.text = "1/f"
-	#$linha_periodo/label.position = Vector2(label_x, label_y)
-	
 	var x_final = min(CENTRO_X + periodo_px, X_MAX)
 	
 	var label_x = ((CENTRO_X + x_final) / 2) - (label_periodo.size.x / 4)
@@ -148,10 +133,10 @@ func desenhar_eixo_tensao() -> void:
 	label_v_mid.text = "%.2fV" % [offset]
 	label_v_min.text = "%.2fV" % [(offset - amplitude_pico)]
 	
-	# -70 é pra posicionar fora do gráfico
-	label_v_max.position = Vector2(X_MIN - 70, y_max - label_v_max.size.y / 2)
-	label_v_mid.position = Vector2(X_MIN - 70, CENTRO_Y - label_v_mid.size.y / 2)
-	label_v_min.position = Vector2(X_MIN - 70, y_min - label_v_min.size.y / 2)
+	# -72 é pra posicionar fora do gráfico
+	label_v_max.position = Vector2(X_MIN - 72, y_max - label_v_max.size.y / 2)
+	label_v_mid.position = Vector2(X_MIN - 72, CENTRO_Y - label_v_mid.size.y / 2)
+	label_v_min.position = Vector2(X_MIN - 72, y_min - label_v_min.size.y / 2)
 
 func _on_grandeza_alterada(_grandeza: Grandeza) -> void:
 	desenhar_grafico()

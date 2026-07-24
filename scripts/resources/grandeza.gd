@@ -21,11 +21,11 @@ signal limites_alterados
 		alterado.emit(valor, antigo)
 		
 func _init(_valor: float, _min: float, _max: float, _digitos: int, _unidade: String) -> void:
-	valor = _valor
 	valor_min = _min
 	valor_max = _max
 	digitos = _digitos
 	unidade = _unidade
+	valor = _valor
 	
 func set_limites(_min: float, _max: float) -> void:
 	valor_min = _min

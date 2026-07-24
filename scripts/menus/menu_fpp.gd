@@ -33,4 +33,4 @@ func _init() -> void:
 	botao_retornar.acao = func(): Gerador.set_menu(MenuPrincipal.new())
 	
 	# o botao vazio é onde seria periodo
-	botoes = [botao_frequencia, botao_vazio, botao_fase, botao_retornar]
+	botoes = [botao_frequencia, botao_fase, botao_vazio, botao_vazio, botao_retornar]

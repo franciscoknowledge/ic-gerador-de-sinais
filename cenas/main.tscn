@@ -34,11 +34,6 @@ position = Vector2(820, 360)
 scale = Vector2(1.188, 1.188)
 texture = ExtResource("1_iwfo7")
 
-[node name="background2" type="Sprite2D" parent="."]
-position = Vector2(820, 367)
-scale = Vector2(0.26, 0.26)
-texture = ExtResource("1_iwfo7")
-
 [node name="label_parametros" type="Label" parent="."]
 visible = false
 offset_left = -631.0
@@ -84,6 +79,11 @@ show_y_ticks = false
 show_y_numbers = false
 show_vertical_line = false
 metadata/_custom_type_script = "uid://7rmctpf3qwhj"
+
+[node name="background2" type="Sprite2D" parent="."]
+position = Vector2(820, 367)
+scale = Vector2(0.26, 0.26)
+texture = ExtResource("1_iwfo7")
 
 [node name="teclado" type="Node" parent="."]
 script = ExtResource("6_iwfo7")
@@ -685,20 +685,22 @@ end_cap_mode = 2
 offset_right = 40.0
 offset_bottom = 23.0
 theme = ExtResource("13_klgsu")
+horizontal_alignment = 1
 
 [node name="mid" type="Label" parent="grafico2/eixo"]
 offset_right = 40.0
 offset_bottom = 23.0
 theme = ExtResource("13_klgsu")
+horizontal_alignment = 1
 
 [node name="min" type="Label" parent="grafico2/eixo"]
 offset_right = 40.0
 offset_bottom = 23.0
 theme = ExtResource("13_klgsu")
+horizontal_alignment = 1
 
 [node name="linha_periodo" type="Line2D" parent="grafico2"]
-visible = false
-width = 5.5
+width = 2.7
 default_color = Color(0, 1, 0, 1)
 joint_mode = 2
 begin_cap_mode = 2
@@ -711,6 +713,7 @@ offset_right = 129.0
 offset_bottom = -49.0
 theme = ExtResource("13_klgsu")
 text = "debug : 3"
+horizontal_alignment = 1
 
 [node name="linha_pico" type="Line2D" parent="grafico2"]
 visible = false
@@ -724,6 +727,7 @@ end_cap_mode = 2
 offset_right = 40.0
 offset_bottom = 23.0
 theme = ExtResource("13_klgsu")
+horizontal_alignment = 1
 
 [node name="potenciometro_rotacao" parent="." instance=ExtResource("13_g6klm")]
 position = Vector2(1460, 113)

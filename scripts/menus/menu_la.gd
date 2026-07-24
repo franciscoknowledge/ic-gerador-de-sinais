@@ -23,4 +23,6 @@ func _init() -> void:
 	botao_retornar.label = "Retornar"
 	botao_retornar.acao = func(): Gerador.set_menu(MenuPrincipal.new())
 	
-	botoes = [botao_amplitude, botao_offset, botao_retornar]
+	var botao_vazio = BotaoResource.new()
+	
+	botoes = [botao_amplitude, botao_offset, botao_vazio, botao_vazio, botao_retornar]
