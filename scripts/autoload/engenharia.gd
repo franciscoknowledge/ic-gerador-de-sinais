@@ -27,7 +27,7 @@ func formatar_numero(n: float, pad: int = 1) -> ParamsEngenharia:
 			valor /= 1000
 			expoente += 3
 			
-		while valor < 1 and expoente > -12:
+		while valor <= 0.01 and expoente > -12:
 			valor *= 1000
 			expoente -= 3
 			

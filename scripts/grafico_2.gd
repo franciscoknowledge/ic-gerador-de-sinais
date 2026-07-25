@@ -46,8 +46,6 @@ enum TIPO_LINHA {
 	TIPO_LINHA.PICO: linha_pico,
 }
 
-## TODO: talvez arrumar um jeito melhor de fazer isso
-##### stupid!!!!!!!
 @onready var _y_tamanho = background_grafico.size * 0.8
 @onready var _y_pos = background_grafico.position + _y_tamanho / 8
 

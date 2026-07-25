@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://yy1nia7yryjw"]
+[gd_scene load_steps=18 format=3 uid="uid://yy1nia7yryjw"]
 
 [ext_resource type="Texture2D" uid="uid://dfx010tt1i5eh" path="res://imagens/gerador5.png" id="1_iwfo7"]
+[ext_resource type="Script" uid="uid://dosyh44h6xfct" path="res://scripts/main.gd" id="1_ocpn0"]
 [ext_resource type="Script" uid="uid://bdgbqvuim03kh" path="res://scripts/botoes_manager.gd" id="5_bhvw8"]
 [ext_resource type="Texture2D" uid="uid://br8qyckxp4std" path="res://imagens/teclado_temp.png" id="5_l8342"]
 [ext_resource type="Script" uid="uid://fvwgrm8oqp5p" path="res://scripts/teclado.gd" id="6_iwfo7"]
@@ -27,6 +28,7 @@ border_color = Color(1, 1, 1, 1)
 Panel/styles/panel = SubResource("StyleBoxFlat_klgsu")
 
 [node name="main" type="Node"]
+script = ExtResource("1_ocpn0")
 
 [node name="background" type="Sprite2D" parent="."]
 visible = false
@@ -376,9 +378,9 @@ justification_flags = 161
 script = ExtResource("10_vhipe")
 
 [node name="frequencia" type="RichTextLabel" parent="labels_grandezas"]
-offset_left = 131.0
+offset_left = 117.0
 offset_top = 94.0
-offset_right = 591.0
+offset_right = 577.0
 offset_bottom = 135.0
 theme = ExtResource("11_g6klm")
 bbcode_enabled = true
@@ -418,9 +420,9 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="fase" type="RichTextLabel" parent="labels_grandezas"]
-offset_left = 131.0
+offset_left = 117.0
 offset_top = 135.0
-offset_right = 591.0
+offset_right = 577.0
 offset_bottom = 176.0
 theme = ExtResource("11_g6klm")
 bbcode_enabled = true
@@ -438,9 +440,9 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="amplitude" type="RichTextLabel" parent="labels_grandezas"]
-offset_left = 131.0
+offset_left = 117.0
 offset_top = 176.0
-offset_right = 591.0
+offset_right = 577.0
 offset_bottom = 217.0
 theme = ExtResource("11_g6klm")
 bbcode_enabled = true
@@ -458,9 +460,9 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="offset" type="RichTextLabel" parent="labels_grandezas"]
-offset_left = 131.0
+offset_left = 117.0
 offset_top = 217.0
-offset_right = 591.0
+offset_right = 577.0
 offset_bottom = 258.0
 theme = ExtResource("11_g6klm")
 bbcode_enabled = true
@@ -607,10 +609,10 @@ texture_normal = ExtResource("5_l8342")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="grafico2" type="Node" parent="."]
+[node name="grafico" type="Node" parent="."]
 script = ExtResource("12_iwfo7")
 
-[node name="background" type="ColorRect" parent="grafico2"]
+[node name="background" type="ColorRect" parent="grafico"]
 visible = false
 offset_left = 129.0
 offset_top = 266.0
@@ -618,14 +620,14 @@ offset_right = 579.0
 offset_bottom = 642.0
 color = Color(0, 0, 1, 1)
 
-[node name="background_grafico" type="Panel" parent="grafico2"]
+[node name="background_grafico" type="Panel" parent="grafico"]
 offset_left = 216.0
 offset_top = 287.0
 offset_right = 557.0
 offset_bottom = 597.0
 theme = SubResource("Theme_ocpn0")
 
-[node name="_background_grafico" type="ColorRect" parent="grafico2"]
+[node name="_background_grafico" type="ColorRect" parent="grafico"]
 visible = false
 anchors_preset = -1
 anchor_right = 0.024
@@ -636,28 +638,25 @@ offset_right = 529.64
 offset_bottom = 498.68
 color = Color(0, 0, 0, 1)
 
-[node name="linha_x" type="Line2D" parent="grafico2"]
+[node name="linha_x" type="Line2D" parent="grafico"]
 width = 1.2
 default_color = Color(0.5132329, 0.5132329, 0.5132329, 1)
 joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
 
-[node name="linha_y" type="Line2D" parent="grafico2"]
+[node name="linha_y" type="Line2D" parent="grafico"]
 width = 1.2
 default_color = Color(0.5132329, 0.5132329, 0.5132329, 1)
 joint_mode = 2
 
-[node name="linha_grafico" type="Line2D" parent="grafico2"]
+[node name="linha_grafico" type="Line2D" parent="grafico"]
 width = 3.5
 default_color = Color(1, 1, 0, 1)
-joint_mode = 2
-begin_cap_mode = 2
-end_cap_mode = 2
 
-[node name="eixo" type="Node" parent="grafico2"]
+[node name="eixo" type="Node" parent="grafico"]
 
-[node name="max" type="Label" parent="grafico2/eixo"]
+[node name="max" type="Label" parent="grafico/eixo"]
 offset_right = 40.0
 offset_bottom = 23.0
 theme = ExtResource("13_klgsu")
@@ -665,7 +664,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 
-[node name="mid" type="Label" parent="grafico2/eixo"]
+[node name="mid" type="Label" parent="grafico/eixo"]
 offset_right = 40.0
 offset_bottom = 23.0
 theme = ExtResource("13_klgsu")
@@ -673,7 +672,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 
-[node name="min" type="Label" parent="grafico2/eixo"]
+[node name="min" type="Label" parent="grafico/eixo"]
 offset_right = 40.0
 offset_bottom = 23.0
 theme = ExtResource("13_klgsu")
@@ -681,14 +680,14 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 
-[node name="linha_periodo" type="Line2D" parent="grafico2"]
+[node name="linha_periodo" type="Line2D" parent="grafico"]
 width = 4.0
 default_color = Color(0, 1, 0, 1)
 joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
 
-[node name="label" type="Label" parent="grafico2/linha_periodo"]
+[node name="label" type="Label" parent="grafico/linha_periodo"]
 offset_left = 89.0
 offset_top = -72.0
 offset_right = 129.0
@@ -697,7 +696,7 @@ theme = ExtResource("13_klgsu")
 text = "debug : 3"
 horizontal_alignment = 1
 
-[node name="linha_pico" type="Line2D" parent="grafico2"]
+[node name="linha_pico" type="Line2D" parent="grafico"]
 width = 4.0
 default_color = Color(0, 1, 0, 1)
 joint_mode = 1
@@ -705,13 +704,13 @@ begin_cap_mode = 2
 end_cap_mode = 2
 round_precision = 12
 
-[node name="label" type="Label" parent="grafico2/linha_pico"]
+[node name="label" type="Label" parent="grafico/linha_pico"]
 offset_right = 40.0
 offset_bottom = 23.0
 theme = ExtResource("13_klgsu")
 horizontal_alignment = 1
 
-[node name="linha_fase" type="Line2D" parent="grafico2"]
+[node name="linha_fase" type="Line2D" parent="grafico"]
 width = 4.0
 default_color = Color(0, 1, 0, 1)
 joint_mode = 1
@@ -719,36 +718,36 @@ begin_cap_mode = 2
 end_cap_mode = 2
 round_precision = 12
 
-[node name="eixo_tempo" type="Node" parent="grafico2"]
+[node name="eixo_tempo" type="Node" parent="grafico"]
 
-[node name="sufixo" type="Label" parent="grafico2/eixo_tempo"]
+[node name="sufixo" type="Label" parent="grafico/eixo_tempo"]
 offset_right = 40.0
 offset_bottom = 23.0
 theme = ExtResource("13_ocpn0")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="t0" type="Label" parent="grafico2/eixo_tempo"]
+[node name="t0" type="Label" parent="grafico/eixo_tempo"]
 offset_right = 40.0
 offset_bottom = 23.0
 theme = ExtResource("13_ocpn0")
 
-[node name="t1" type="Label" parent="grafico2/eixo_tempo"]
+[node name="t1" type="Label" parent="grafico/eixo_tempo"]
 offset_right = 40.0
 offset_bottom = 23.0
 theme = ExtResource("13_ocpn0")
 
-[node name="t2" type="Label" parent="grafico2/eixo_tempo"]
+[node name="t2" type="Label" parent="grafico/eixo_tempo"]
 offset_right = 40.0
 offset_bottom = 23.0
 theme = ExtResource("13_ocpn0")
 
-[node name="t3" type="Label" parent="grafico2/eixo_tempo"]
+[node name="t3" type="Label" parent="grafico/eixo_tempo"]
 offset_right = 40.0
 offset_bottom = 23.0
 theme = ExtResource("13_ocpn0")
 
-[node name="t4" type="Label" parent="grafico2/eixo_tempo"]
+[node name="t4" type="Label" parent="grafico/eixo_tempo"]
 offset_left = 83.0
 offset_top = -277.0
 offset_right = 123.0
@@ -756,7 +755,7 @@ offset_bottom = -254.0
 theme = ExtResource("13_ocpn0")
 
 [node name="potenciometro_rotacao" parent="." instance=ExtResource("13_g6klm")]
-position = Vector2(1460, 113)
+position = Vector2(1460, 127)
 
 [connection signal="pressed" from="botoes_atalho/freq_periodo" to="botoes_atalho" method="_on_freq_periodo_pressed"]
 [connection signal="pressed" from="botoes_atalho/amplitude_alta" to="botoes_atalho" method="_on_amplitude_alta_pressed"]
