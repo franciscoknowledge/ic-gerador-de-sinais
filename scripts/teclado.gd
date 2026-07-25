@@ -49,9 +49,6 @@ func _ready() -> void:
 	
 	potenciometro_rotacao.rotacionado.connect(_on_potenciometro_rotacao)
 
-#func _process(_d) -> void:
-#	print(string_edicao)
-
 func sai_dessa() -> void:
 	pos_cursor = 0
 	string_edicao = ""
@@ -66,7 +63,6 @@ func aplicar() -> void:
 		grandeza.valor = float(string_edicao)
 	sai_dessa()
 	
-	#string_edicao = labels_grandezas.get_base(grandeza)
 	string_edicao = Engenharia.formatar_grandeza(grandeza).base
 	
 func entrar_menu_unidades() -> void:
@@ -74,7 +70,6 @@ func entrar_menu_unidades() -> void:
 	Gerador.set_menu(grandeza_para_menu[Gerador.id_grandeza_sendo_editada])
 
 func mover_cursor(dir: int) -> void:
-	#if not is_modo_digitacao: return
 	if dir != -1 and dir != 1: return
 	
 	var pos_ponto = string_edicao.find(".")
@@ -133,7 +128,8 @@ func enter() -> void:
 	if not is_modo_digitacao: return
 	Gerador.set_menu(Gerador.menu_anterior)
 	aplicar()
-	
+
+# edição pelo potenciometro
 func modificar_casa(val: int) -> void:
 	if val != 1 and val != -1: return
 	if not grandeza: return
@@ -180,7 +176,6 @@ func modificar_casa(val: int) -> void:
 		numeros.insert(pos_insercao, "1")
 		pos_cursor += 1
 		
-	#var params = labels_grandezas.get_notacao(grandeza)
 	var params = Engenharia.formatar_grandeza(grandeza)
 	var base = "".join(numeros)
 	grandeza.valor = float(base) * pow(10, params.expoente)
@@ -203,10 +198,11 @@ func _bot_sinal() -> void:
 	_iniciar_edicao_se_necessario()
 	sinal()
 
-func _bot_caractere(chr: String) -> void:
-	var nao_repete = (chr == "." or chr == "-")
-	if nao_repete and (string_edicao.contains(".") or string_edicao.contains("-")):
-		return
+func _bot_caractere(chr: String) -> void:		
+	var tem_ponto = string_edicao.contains(".")
+	var tem_sinal = string_edicao.contains("-")
+	if tem_ponto and chr == ".": return
+	if tem_sinal and chr == "-": return
 	
 	_iniciar_edicao_se_necessario()
 	inserir_caractere(chr)
@@ -217,14 +213,12 @@ func _set_grandeza() -> void:
 	sai_dessa()
 	
 	if not grandeza: return
-	#string_edicao = labels_grandezas.get_base(grandeza)
 	string_edicao = Engenharia.formatar_grandeza(grandeza).base
 
 func _digitacao_confirmada(mult: int) -> void:
 	if not grandeza: return
 	grandeza.valor = float(string_edicao) * pow(10, mult)
 	sai_dessa()
-	#string_edicao = labels_grandezas.get_base(grandeza)
 	string_edicao = Engenharia.formatar_grandeza(grandeza).base
 
 func _iniciar_edicao_se_necessario() -> void:
@@ -236,7 +230,4 @@ func _iniciar_edicao_se_necessario() -> void:
 
 func _on_potenciometro_rotacao(_rotacao: float, delta: float) -> void:
 	var s = sign(delta)
-	if s == -1:
-		modificar_casa(-1)
-	elif s == 1:
-		modificar_casa(1)
+	modificar_casa(s)

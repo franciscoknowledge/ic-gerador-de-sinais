@@ -64,8 +64,6 @@ func _ready() -> void:
 	
 	for grandeza: Grandeza in [frequencia, periodo, fase, amplitude, offset, simetria]:
 		grandeza.alterado.connect(func(_a, _b): _grandeza_alterada(grandeza))
-		
-	#frequencia.valor = 1e6
 	
 # getters
 func get_grandeza(id: ID_GRANDEZAS) -> Grandeza:

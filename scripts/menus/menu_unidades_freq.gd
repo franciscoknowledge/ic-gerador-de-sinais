@@ -2,13 +2,6 @@ extends MenuResource
 class_name MenuUnidadesFreq
 
 func mult_freq(expoente: int):
-	#Gerador.frequencia *= (10.0 ** expoente)
-	#Gerador.digitacao_confirmada.emit()
-	
-	#Gerador.frequencia.valor *= (10.0 ** expoente)
-	#Gerador.set_menu(MenuFpp.new())
-	#Gerador.digitacao_confirmada.emit()
-	
 	Gerador.digitacao_confirmada.emit(expoente)
 	Gerador.set_menu(MenuFpp.new())
 
@@ -31,8 +24,4 @@ func _init() -> void:
 	botao_mili_hz.label = "mhz"
 	botao_mili_hz.acao = mult_freq.bind(-3)
 	
-	#var botao_cancel = BotaoResource.new()
-	#botao_cancel.label = "Cancel"
-	#botao_cancel.acao = func(): Gerador.set_menu(MenuFpp.new())
-	
-	botoes = [botao_mega_hz, botao_khz, botao_hz, botao_mili_hz]#, botao_cancel]
+	botoes = [botao_mega_hz, botao_khz, botao_hz, botao_mili_hz]

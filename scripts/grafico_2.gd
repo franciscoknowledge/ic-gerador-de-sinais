@@ -61,22 +61,18 @@ enum TIPO_LINHA {
 @onready var CENTRO_Y: float = (Y_MIN + Y_MAX) / 2
 
 func _ready() -> void:
+	set_linha_ativa(TIPO_LINHA.NENHUM)
 	desenhar_grafico()
 	
 	linha_x.points = [Vector2(X_MIN, CENTRO_Y), Vector2(X_MAX, CENTRO_Y)]
 	linha_y.points = [Vector2(CENTRO_X, Y_MIN), Vector2(CENTRO_X, Y_MAX)]
 	
-	set_linha_ativa(TIPO_LINHA.NENHUM)
 	Gerador.tipo_de_onda_alterada.connect(desenhar_grafico)
 	Gerador.grandeza_alterada.connect(_on_grandeza_alterada)
 	Gerador.id_grandeza_sendo_editada_alterada.connect(_on_id_grandeza_sendo_editada_alterada)
 
 func desenhar_grafico() -> void:
 	linha_grafico.clear_points()
-	
-	# centro
-	#var c_x: float = (X_MIN + X_MAX) / 2
-	#var c_y: float = (Y_MIN + Y_MAX) / 2
 	
 	# offset -1 - 1
 	var offset_fase: float = Gerador.fase.valor / 360
@@ -153,15 +149,6 @@ func desenhar_linha_periodo(x_zero: float, periodo_px: float) -> void:
 	linha_periodo.points = [Vector2(x_inicio, CENTRO_Y), Vector2(x_final, CENTRO_Y)]
 	label_periodo.text = "1/f"
 	label_periodo.position = Vector2(label_x, label_y)
-	
-	#var x_final = min(CENTRO_X + periodo_px, X_MAX)
-	#
-	#var label_x = ((CENTRO_X + x_final) / 2) - (label_periodo.size.x / 4)
-	#var label_y = CENTRO_Y - label_periodo.size.y - 10
-	#
-	#linha_periodo.points = [Vector2(CENTRO_X, CENTRO_Y), Vector2(x_final, CENTRO_Y)]
-	#label_periodo.text = "1/f"
-	#label_periodo.position = Vector2(label_x, label_y)
 
 func desenhar_linha_pico(pico_x: float, pico_y: float) -> void:
 	linha_pico.points = [Vector2(pico_x, Y_MAX), Vector2(pico_x, pico_y)]
@@ -181,10 +168,6 @@ func desenhar_eixo_tensao() -> void:
 		var params = Engenharia.formatar_numero(v, 2)
 		
 		l.text = "%s%sV" % [params.base, params.sufixo]
-	
-	#label_v_max.text = "%.2fV" % [(offset + amplitude_pico)]
-	#label_v_mid.text = "%.2fV" % [offset]
-	#label_v_min.text = "%.2fV" % [(offset - amplitude_pico)]
 	
 	# -99 é pra posicionar fora do gráfico
 	label_v_max.position = Vector2(X_MIN - 99, y_max - label_v_max.size.y / 2)
@@ -209,16 +192,15 @@ func desenhar_tempo(periodo_px: float) -> void:
 		var tempo: float = (x - X_MIN) * tempo_por_pixel
 		
 		var label = labels_eixo_tempo[i]
-		var params = Engenharia.formatar_numero_no_expoente(tempo, expoente, 1)
+		var params = Engenharia.formatar_numero_no_expoente(tempo, expoente, 2)
 		
-		label.text = "%s" % [params.base]#, params.sufixo]
+		label.text = "%s" % [params.base]
 		label.position = Vector2(x - label.size.x / 2, BG_MAX + 6)
 		
 	var suf_x = CENTRO_X - label_eixo_tempo_sufixo.size.x / 2
 	var suf_y = BG_MAX + 40
 	label_eixo_tempo_sufixo.position = Vector2(suf_x, suf_y)
 	label_eixo_tempo_sufixo.text = "%ss" % [Engenharia.get_sufixo(expoente)]
-	#print(label_eixo_tempo_sufixo.position)
 
 func set_linha_ativa(tipo: TIPO_LINHA) -> void:
 	for val in TIPO_LINHA.values():

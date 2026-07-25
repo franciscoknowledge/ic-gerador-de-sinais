@@ -93,23 +93,6 @@ func update() -> void:
 		
 		label.text = valor_str
 		
-		#var skip = texto.length() + 1
-		#var underline_i = teclado.pos_cursor + skip
-		#var underline_f = teclado.pos_cursor + skip + 4
-		#
-		#valor_str = "%s:%s %s%s" % [texto, params.base, params.sufixo, grandeza.unidade]
-		#if id == Gerador.id_grandeza_sendo_editada:
-		#	if teclado.is_modo_digitacao:
-		#		valor_str = "%s:%s" % [texto, inserir_cursor(teclado.string_edicao)]
-		#	else:
-		#		clone.text = "aaaaaaaaaa"
-		#		clone.visible = true
-		#	#else:
-		#	#	valor_str = valor_str.insert(underline_i, "[u]")
-		#	#	valor_str = valor_str.insert(underline_f, "[/u]")
-		#
-		#label.text = valor_str
-		
 	fez_update.emit()
 		
 func _on_grandeza_alterada(_v) -> void:

@@ -6,8 +6,6 @@ func _ready() -> void:
 	for i in range(0, botoes.size()):
 		var botao = botoes[i]
 		botao.pressed.connect(_botao_pressionado.bind(i))
-		
-	pass
 	
 func _botao_pressionado(i: int) -> void:
 	Gerador.botao_pressionado(i)

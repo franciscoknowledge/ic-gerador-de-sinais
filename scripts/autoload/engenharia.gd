@@ -38,11 +38,11 @@ func formatar_numero(n: float, pad: int = 1) -> ParamsEngenharia:
 	return params
 	
 # forçar o numero em um expoente (yeah!)
-func formatar_numero_no_expoente(n: float, expoente: int, decimais: int = 1) -> ParamsEngenharia:
+func formatar_numero_no_expoente(n: float, expoente: int, pad: int = 1) -> ParamsEngenharia:
 	var valor: float = n / pow(10, expoente)
-	var base: String = "%.*f" % [decimais, valor]
+	var base: String = "%.*f" % [pad, valor]
 	
-	return ParamsEngenharia.new(base, expoente, SUFIXOS.get(expoente, ""))
+	return ParamsEngenharia.new(base, expoente, get_sufixo(expoente))
 
 # faz o padding em relação aos digitos, pq é assim que funciona no display
 func formatar_grandeza(g: Grandeza) -> ParamsEngenharia:
