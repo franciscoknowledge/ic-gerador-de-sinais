@@ -163,11 +163,13 @@ func desenhar_eixo_tensao() -> void:
 	var labels = [label_v_max, label_v_mid, label_v_min] 
 	var valores = [offset + amplitude_pico, offset, offset - amplitude_pico]
 	for i in range(3):
-		var l = labels[i]
-		var v = valores[i]
-		var params = Engenharia.formatar_numero(v, 2)
+		var label = labels[i]
+		var valor = valores[i]
+		var sinal = "+" if sign(valor) >= 0 else ""
 		
-		l.text = "%s%sV" % [params.base, params.sufixo]
+		var params = Engenharia.formatar_numero(valor, 2)
+		
+		label.text = "%s%s%sV" % [sinal, params.base, params.sufixo]
 	
 	# -99 é pra posicionar fora do gráfico
 	label_v_max.position = Vector2(X_MIN - 99, y_max - label_v_max.size.y / 2)

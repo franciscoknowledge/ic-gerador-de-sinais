@@ -1,7 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://yy1nia7yryjw"]
+[gd_scene load_steps=23 format=3 uid="uid://yy1nia7yryjw"]
 
 [ext_resource type="Script" uid="uid://dosyh44h6xfct" path="res://scripts/main.gd" id="1_ocpn0"]
 [ext_resource type="Texture2D" uid="uid://dks808x88pyrd" path="res://imagens/gerador9.png" id="2_6uvjy"]
+[ext_resource type="Texture2D" uid="uid://2whqy2i61i3" path="res://imagens/branco.png" id="2_uique"]
 [ext_resource type="Script" uid="uid://bdgbqvuim03kh" path="res://scripts/botoes_manager.gd" id="5_bhvw8"]
 [ext_resource type="Texture2D" uid="uid://br8qyckxp4std" path="res://imagens/teclado_temp.png" id="5_l8342"]
 [ext_resource type="Script" uid="uid://fvwgrm8oqp5p" path="res://scripts/teclado.gd" id="6_iwfo7"]
@@ -34,10 +35,17 @@ Panel/styles/panel = SubResource("StyleBoxFlat_klgsu")
 [node name="main" type="Node"]
 script = ExtResource("1_ocpn0")
 
-[node name="background2" type="Sprite2D" parent="."]
+[node name="background" type="Sprite2D" parent="."]
+position = Vector2(805, 363.00003)
+scale = Vector2(16.900002, 7.6400003)
+texture = ExtResource("2_uique")
+metadata/_edit_lock_ = true
+
+[node name="sprite_gerador" type="Sprite2D" parent="."]
 position = Vector2(820, 367)
 scale = Vector2(0.26, 0.26)
 texture = ExtResource("2_6uvjy")
+metadata/_edit_lock_ = true
 
 [node name="display_background" type="ColorRect" parent="."]
 offset_left = 102.0
@@ -45,6 +53,7 @@ offset_top = 69.0
 offset_right = 585.0
 offset_bottom = 665.0
 color = Color(0, 0.2666664, 1, 1)
+metadata/_edit_lock_ = true
 
 [node name="teclado" type="Node" parent="."]
 script = ExtResource("6_iwfo7")
@@ -588,31 +597,13 @@ stretch_mode = 0
 [node name="grafico" type="Node" parent="."]
 script = ExtResource("12_iwfo7")
 
-[node name="background" type="ColorRect" parent="grafico"]
-visible = false
-offset_left = 129.0
-offset_top = 266.0
-offset_right = 579.0
-offset_bottom = 642.0
-color = Color(0, 0, 1, 1)
-
 [node name="background_grafico" type="Panel" parent="grafico"]
 offset_left = 216.0
 offset_top = 287.0
 offset_right = 557.0
 offset_bottom = 597.0
 theme = SubResource("Theme_ocpn0")
-
-[node name="_background_grafico" type="ColorRect" parent="grafico"]
-visible = false
-anchors_preset = -1
-anchor_right = 0.024
-anchor_bottom = 0.056
-offset_left = 211.0
-offset_top = 292.0
-offset_right = 529.64
-offset_bottom = 498.68
-color = Color(0, 0, 0, 1)
+metadata/_edit_lock_ = true
 
 [node name="linha_x" type="Line2D" parent="grafico"]
 width = 1.2

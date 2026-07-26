@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://btm0khxsweo1"
-path="res://.godot/imported/gerador4.png-8c5eb00597489bece577265aaa317446.ctex"
+uid="uid://2whqy2i61i3"
+path="res://.godot/imported/branco.png-adc896e5ce316f3477b6c088344ced28.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://imagens/gerador4.png"
-dest_files=["res://.godot/imported/gerador4.png-8c5eb00597489bece577265aaa317446.ctex"]
+source_file="res://imagens/branco.png"
+dest_files=["res://.godot/imported/branco.png-adc896e5ce316f3477b6c088344ced28.ctex"]
 
 [params]
 
