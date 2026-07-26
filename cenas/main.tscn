@@ -1,7 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://yy1nia7yryjw"]
+[gd_scene load_steps=22 format=3 uid="uid://yy1nia7yryjw"]
 
-[ext_resource type="Texture2D" uid="uid://dfx010tt1i5eh" path="res://imagens/gerador5.png" id="1_iwfo7"]
 [ext_resource type="Script" uid="uid://dosyh44h6xfct" path="res://scripts/main.gd" id="1_ocpn0"]
+[ext_resource type="Texture2D" uid="uid://dks808x88pyrd" path="res://imagens/gerador9.png" id="2_6uvjy"]
 [ext_resource type="Script" uid="uid://bdgbqvuim03kh" path="res://scripts/botoes_manager.gd" id="5_bhvw8"]
 [ext_resource type="Texture2D" uid="uid://br8qyckxp4std" path="res://imagens/teclado_temp.png" id="5_l8342"]
 [ext_resource type="Script" uid="uid://fvwgrm8oqp5p" path="res://scripts/teclado.gd" id="6_iwfo7"]
@@ -15,6 +15,10 @@
 [ext_resource type="PackedScene" uid="uid://bjuol1tmatima" path="res://cenas/potenciometro_rotacao.tscn" id="13_g6klm"]
 [ext_resource type="Theme" uid="uid://chq28oyjeecxx" path="res://themes/display_grafico_labels.tres" id="13_klgsu"]
 [ext_resource type="Theme" uid="uid://dmncwh7v4nqna" path="res://themes/display_eixo_tempo.tres" id="13_ocpn0"]
+[ext_resource type="Script" uid="uid://86claoibfin1" path="res://cenas/botao_channel.gd" id="15_uique"]
+[ext_resource type="Theme" uid="uid://6xr0ldoigelv" path="res://themes/display_output.tres" id="16_elfaa"]
+[ext_resource type="Texture2D" uid="uid://b0grn33ad1i8u" path="res://imagens/button_channel_highlight.png" id="17_03f8d"]
+[ext_resource type="Texture2D" uid="uid://qwqfnvfq4xvp" path="res://imagens/button_channel.png" id="18_em6j3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_klgsu"]
 bg_color = Color(0, 0, 0, 1)
@@ -33,7 +37,7 @@ script = ExtResource("1_ocpn0")
 [node name="background2" type="Sprite2D" parent="."]
 position = Vector2(820, 367)
 scale = Vector2(0.26, 0.26)
-texture = ExtResource("1_iwfo7")
+texture = ExtResource("2_6uvjy")
 
 [node name="display_background" type="ColorRect" parent="."]
 offset_left = 102.0
@@ -726,8 +730,39 @@ offset_right = 123.0
 offset_bottom = -254.0
 theme = ExtResource("13_ocpn0")
 
+[node name="botao_channel" type="Node" parent="."]
+script = ExtResource("15_uique")
+
+[node name="label_output" type="Label" parent="botao_channel"]
+offset_left = 116.0
+offset_top = 263.0
+offset_right = 340.0
+offset_bottom = 289.0
+theme = ExtResource("16_elfaa")
+text = "OUTPUT: OFF/ON"
+
+[node name="sprite_highlight" type="Sprite2D" parent="botao_channel"]
+position = Vector2(1001, 547)
+scale = Vector2(0.2585474, 0.2585474)
+texture = ExtResource("17_03f8d")
+
+[node name="sprite_botao" type="Sprite2D" parent="botao_channel"]
+position = Vector2(1001, 547)
+scale = Vector2(0.2585474, 0.2585474)
+texture = ExtResource("18_em6j3")
+
+[node name="botao" type="TextureButton" parent="botao_channel"]
+offset_left = 943.0
+offset_top = 520.0
+offset_right = 1062.0
+offset_bottom = 580.0
+texture_normal = ExtResource("5_l8342")
+ignore_texture_size = true
+stretch_mode = 0
+
 [node name="potenciometro_rotacao" parent="." instance=ExtResource("13_g6klm")]
 position = Vector2(1460, 127)
 
 [connection signal="pressed" from="botoes_atalho/freq_periodo" to="botoes_atalho" method="_on_freq_periodo_pressed"]
 [connection signal="pressed" from="botoes_atalho/amplitude_alta" to="botoes_atalho" method="_on_amplitude_alta_pressed"]
+[connection signal="pressed" from="botao_channel/botao" to="botoes_atalho" method="_on_freq_periodo_pressed"]
