@@ -1,8 +1,8 @@
 [gd_scene load_steps=23 format=3 uid="uid://yy1nia7yryjw"]
 
 [ext_resource type="Script" uid="uid://dosyh44h6xfct" path="res://scripts/main.gd" id="1_ocpn0"]
-[ext_resource type="Texture2D" uid="uid://dks808x88pyrd" path="res://imagens/gerador9.png" id="2_6uvjy"]
 [ext_resource type="Texture2D" uid="uid://2whqy2i61i3" path="res://imagens/branco.png" id="2_uique"]
+[ext_resource type="Texture2D" uid="uid://ccbxbl88n7elc" path="res://imagens/gerador_png.png" id="3_uique"]
 [ext_resource type="Script" uid="uid://bdgbqvuim03kh" path="res://scripts/botoes_manager.gd" id="5_bhvw8"]
 [ext_resource type="Texture2D" uid="uid://br8qyckxp4std" path="res://imagens/teclado_temp.png" id="5_l8342"]
 [ext_resource type="Script" uid="uid://fvwgrm8oqp5p" path="res://scripts/teclado.gd" id="6_iwfo7"]
@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://bjuol1tmatima" path="res://cenas/potenciometro_rotacao.tscn" id="13_g6klm"]
 [ext_resource type="Theme" uid="uid://chq28oyjeecxx" path="res://themes/display_grafico_labels.tres" id="13_klgsu"]
 [ext_resource type="Theme" uid="uid://dmncwh7v4nqna" path="res://themes/display_eixo_tempo.tres" id="13_ocpn0"]
-[ext_resource type="Script" uid="uid://86claoibfin1" path="res://cenas/botao_channel.gd" id="15_uique"]
+[ext_resource type="Script" uid="uid://86claoibfin1" path="res://scripts/botao_channel.gd" id="15_uique"]
 [ext_resource type="Theme" uid="uid://6xr0ldoigelv" path="res://themes/display_output.tres" id="16_elfaa"]
 [ext_resource type="Texture2D" uid="uid://b0grn33ad1i8u" path="res://imagens/button_channel_highlight.png" id="17_03f8d"]
 [ext_resource type="Texture2D" uid="uid://qwqfnvfq4xvp" path="res://imagens/button_channel.png" id="18_em6j3"]
@@ -44,7 +44,7 @@ metadata/_edit_lock_ = true
 [node name="sprite_gerador" type="Sprite2D" parent="."]
 position = Vector2(820, 367)
 scale = Vector2(0.26, 0.26)
-texture = ExtResource("2_6uvjy")
+texture = ExtResource("3_uique")
 metadata/_edit_lock_ = true
 
 [node name="display_background" type="ColorRect" parent="."]
