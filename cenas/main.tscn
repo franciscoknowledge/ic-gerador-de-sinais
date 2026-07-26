@@ -364,9 +364,9 @@ script = ExtResource("10_vhipe")
 
 [node name="frequencia" type="RichTextLabel" parent="labels_grandezas"]
 offset_left = 117.0
-offset_top = 94.0
+offset_top = 81.0
 offset_right = 577.0
-offset_bottom = 135.0
+offset_bottom = 122.0
 theme = ExtResource("11_g6klm")
 bbcode_enabled = true
 text = "Freq: 11111111111[u]1[/u]1"
@@ -406,9 +406,9 @@ grow_vertical = 2
 
 [node name="fase" type="RichTextLabel" parent="labels_grandezas"]
 offset_left = 117.0
-offset_top = 135.0
+offset_top = 122.0
 offset_right = 577.0
-offset_bottom = 176.0
+offset_bottom = 163.0
 theme = ExtResource("11_g6klm")
 bbcode_enabled = true
 text = "Phase: 22222222222"
@@ -426,9 +426,9 @@ grow_vertical = 2
 
 [node name="amplitude" type="RichTextLabel" parent="labels_grandezas"]
 offset_left = 117.0
-offset_top = 176.0
+offset_top = 163.0
 offset_right = 577.0
-offset_bottom = 217.0
+offset_bottom = 204.0
 theme = ExtResource("11_g6klm")
 bbcode_enabled = true
 text = "Ampl: 33333333"
@@ -446,9 +446,9 @@ grow_vertical = 2
 
 [node name="offset" type="RichTextLabel" parent="labels_grandezas"]
 offset_left = 117.0
-offset_top = 217.0
+offset_top = 204.0
 offset_right = 577.0
-offset_bottom = 258.0
+offset_bottom = 245.0
 theme = ExtResource("11_g6klm")
 bbcode_enabled = true
 text = "Offset: 44444444"
@@ -463,106 +463,6 @@ anchor_bottom = 1.0
 offset_right = -14.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="_frequencia" type="Label" parent="labels_grandezas"]
-visible = false
-offset_left = 131.0
-offset_top = 94.0
-offset_right = 591.0
-offset_bottom = 135.0
-theme = ExtResource("8_vhipe")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Freq:11111111111"
-vertical_alignment = 1
-metadata/_edit_lock_ = true
-
-[node name="_periodo" type="Label" parent="labels_grandezas"]
-visible = false
-offset_left = 131.0
-offset_top = 94.0
-offset_right = 591.0
-offset_bottom = 135.0
-theme = ExtResource("8_vhipe")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Period: 9999999999"
-vertical_alignment = 1
-
-[node name="rect" type="ColorRect" parent="labels_grandezas/_periodo"]
-visible = false
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.99607843, 0.5803922, 0.9372549, 1)
-
-[node name="_fase" type="Label" parent="labels_grandezas"]
-visible = false
-offset_left = 131.0
-offset_top = 135.0
-offset_right = 591.0
-offset_bottom = 176.0
-theme = ExtResource("8_vhipe")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Phase:22222222222"
-vertical_alignment = 1
-
-[node name="rect" type="ColorRect" parent="labels_grandezas/_fase"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -14.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.99607843, 0.5803922, 0.9372549, 1)
-
-[node name="_amplitude" type="Label" parent="labels_grandezas"]
-visible = false
-offset_left = 131.0
-offset_top = 176.0
-offset_right = 591.0
-offset_bottom = 217.0
-theme = ExtResource("8_vhipe")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Ampl:3333333333"
-vertical_alignment = 1
-
-[node name="rect" type="ColorRect" parent="labels_grandezas/_amplitude"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -14.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.99607843, 0.5803922, 0.9372549, 1)
-
-[node name="_offset" type="Label" parent="labels_grandezas"]
-visible = false
-offset_left = 131.0
-offset_top = 217.0
-offset_right = 591.0
-offset_bottom = 258.0
-theme = ExtResource("8_vhipe")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Offset:4444444444"
-vertical_alignment = 1
-
-[node name="rect" type="ColorRect" parent="labels_grandezas/_offset"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -14.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.99607843, 0.5803922, 0.9372549, 1)
 
 [node name="botoes_ondas" type="Node" parent="."]
 script = ExtResource("10_iwfo7")
@@ -726,9 +626,9 @@ script = ExtResource("15_uique")
 
 [node name="label_output" type="Label" parent="botao_channel"]
 offset_left = 116.0
-offset_top = 263.0
+offset_top = 256.0
 offset_right = 340.0
-offset_bottom = 289.0
+offset_bottom = 282.0
 theme = ExtResource("16_elfaa")
 text = "OUTPUT: OFF/ON"
 

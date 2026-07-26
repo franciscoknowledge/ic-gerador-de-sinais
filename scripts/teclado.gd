@@ -198,8 +198,8 @@ func _bot_sinal() -> void:
 	_iniciar_edicao_se_necessario()
 	sinal()
 
-func _bot_caractere(chr: String) -> void:		
-	var tem_ponto = string_edicao.contains(".")
+func _bot_caractere(chr: String) -> void:
+	var tem_ponto = is_modo_digitacao and string_edicao.contains(".")
 	var tem_sinal = string_edicao.contains("-")
 	if tem_ponto and chr == ".": return
 	if tem_sinal and chr == "-": return
