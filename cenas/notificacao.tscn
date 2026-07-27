@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1re05k6i71t5"]
+
+[ext_resource type="Script" uid="uid://cb6vb3x2mygea" path="res://scripts/notificacao.gd" id="1_udvof"]
+[ext_resource type="Theme" uid="uid://ca7ujuy14spxn" path="res://themes/notificacao.tres" id="1_yhlxs"]
+
+[node name="notificacao" type="Label"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("1_yhlxs")
+script = ExtResource("1_udvof")
+
+[node name="timer" type="Timer" parent="."]
+wait_time = 1.5

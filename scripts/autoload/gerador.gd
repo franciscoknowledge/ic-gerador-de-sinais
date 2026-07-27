@@ -40,6 +40,15 @@ var amplitude := Grandeza.new(5, MIN_AMPLITUDE, MAX_AMPLITUDE, 8, "Vpp")
 var offset := Grandeza.new(0, 0, 0, 8, "V")
 var simetria := Grandeza.new(0, 0, 100, 8, "%")
 
+var grandeza_para_nome: Dictionary[Grandeza, String] = {
+	frequencia : "frequencia",
+	periodo : "periodo",
+	fase : "fase",
+	amplitude : "amplitude",
+	offset : "offset",
+	simetria : "simetria",
+}
+
 var id_grandeza_sendo_editada: ID_GRANDEZAS = ID_GRANDEZAS.NENHUM:
 	set(v):
 		var antigo = id_grandeza_sendo_editada

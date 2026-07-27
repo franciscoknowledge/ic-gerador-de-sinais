@@ -18,7 +18,7 @@ func _process(_delta: float) -> void:
 		arrastar()
 
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if !(event is InputEventMouseButton): return
+	if not (event is InputEventMouseButton): return
 	if event.button_index == MOUSE_BUTTON_LEFT:
 		selecionado = event.is_pressed()
 

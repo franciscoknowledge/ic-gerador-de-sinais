@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://yy1nia7yryjw"]
+[gd_scene load_steps=24 format=3 uid="uid://yy1nia7yryjw"]
 
 [ext_resource type="Script" uid="uid://dosyh44h6xfct" path="res://scripts/main.gd" id="1_ocpn0"]
 [ext_resource type="Texture2D" uid="uid://2whqy2i61i3" path="res://imagens/branco.png" id="2_uique"]
@@ -20,6 +20,7 @@
 [ext_resource type="Theme" uid="uid://6xr0ldoigelv" path="res://themes/display_output.tres" id="16_elfaa"]
 [ext_resource type="Texture2D" uid="uid://b0grn33ad1i8u" path="res://imagens/button_channel_highlight.png" id="17_03f8d"]
 [ext_resource type="Texture2D" uid="uid://qwqfnvfq4xvp" path="res://imagens/button_channel.png" id="18_em6j3"]
+[ext_resource type="Script" uid="uid://bbgtccjr6u5yq" path="res://scripts/notificacoes_manager.gd" id="20_elfaa"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_klgsu"]
 bg_color = Color(0, 0, 0, 1)
@@ -653,6 +654,9 @@ stretch_mode = 0
 
 [node name="potenciometro_rotacao" parent="." instance=ExtResource("13_g6klm")]
 position = Vector2(1460, 127)
+
+[node name="notificacoes" type="Node" parent="."]
+script = ExtResource("20_elfaa")
 
 [connection signal="pressed" from="botoes_atalho/freq_periodo" to="botoes_atalho" method="_on_freq_periodo_pressed"]
 [connection signal="pressed" from="botoes_atalho/amplitude_alta" to="botoes_atalho" method="_on_amplitude_alta_pressed"]

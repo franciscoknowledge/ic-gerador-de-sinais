@@ -8,18 +8,21 @@ extends Node
 var buttons: Array[TextureButton] = []
 
 func _ready() -> void:
-	if !OS.is_debug_build():
-		mostrar_buttons = false
-	
-	var descendants = find_children("*")
-	for d in descendants:
-		if !(d is TextureButton): continue
-		buttons.append(d)
-		
-	toggle_buttons(mostrar_buttons)
+	_init_buttons_debug()
 		
 func toggle_buttons(v: bool) -> void:
 	var cor = Color.WHITE if v else Color.TRANSPARENT
 	
 	for button in buttons:
 		button.modulate = cor
+
+func _init_buttons_debug() -> void:
+	if not OS.is_debug_build():
+		mostrar_buttons = false
+	
+	var descendants = find_children("*")
+	for d in descendants:
+		if not (d is TextureButton): continue
+		buttons.append(d)
+		
+	toggle_buttons(mostrar_buttons)
