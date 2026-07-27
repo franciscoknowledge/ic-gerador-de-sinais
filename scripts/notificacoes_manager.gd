@@ -12,10 +12,12 @@ func _ready() -> void:
 	_init_sinais_gerador()
 
 func reposicionar_y() -> void:
-	var y = 0.0
-	for existente in get_children():
+	var children = get_children()
+	var y = children.size() * SHIFT_Y
+	
+	for existente in children:
 		existente.position = Vector2(existente.position.x, y)
-		y += SHIFT_Y
+		y -= SHIFT_Y
 
 func _criar_notificacao(grandeza: Grandeza, excedeu: bool) -> void:
 	if not habilitado: return

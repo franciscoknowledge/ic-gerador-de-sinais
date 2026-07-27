@@ -4,6 +4,7 @@ signal grandeza_alterada(grandeza: Grandeza)
 signal menu_alterado(novo: MenuResource)
 signal id_grandeza_sendo_editada_alterada()
 signal tipo_de_onda_alterada()
+@warning_ignore("unused_signal")
 signal digitacao_confirmada(mult: int)
 
 enum ID_GRANDEZAS {
